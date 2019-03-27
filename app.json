@@ -1,0 +1,12 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/anomaly/anomaly"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#bababa",
+    "navigationBarTitleText": "惠赐丹枫",
+    "navigationBarTextStyle": "black"
+  }
+}

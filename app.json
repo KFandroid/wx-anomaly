@@ -2,7 +2,8 @@
   "pages": [
     "pages/index/index",
     "pages/anomaly/anomaly",
-    "pages/search/search"
+    "pages/search/search",
+    "pages/selectIndex/selectIndex"
   ],
   "window": {
     "backgroundTextStyle": "light",

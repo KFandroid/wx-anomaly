@@ -3,7 +3,6 @@ import {
   } from './crypt.js'
   import analysisByte from './analysis.js'
   
-  // const app = getApp();
   // let url = 'ws://222.190.119.83:8082/l1WebSocket' // 外网地址
   // let url = 'ws://47.101.191.138:8082/l1WebSocket' // aliyun地址
   // let url = 'ws://192.168.137.50:8082/l1WebSocket' // 张孙浩
@@ -12,14 +11,16 @@ import {
   let reconnectHandle = null
   const MAX_CONNECTION_NUM = 10 // 最大连接数10
   let connectCount = 0
-  
+  let socketTask
+  let socketConnectFail
   export const createConnect = () => {
-    if (!getApp().globalData.socketTask) {
-      getApp().globalData.socketTask = wx.connectSocket({ // 创建一个 WebSocket 连接
+    
+    if (!socketTask) {
+      socketTask = wx.connectSocket({ // 创建一个 WebSocket 连接
         url: url,
         fail(err) {
           if (err) {
-            app.globalData.socketConnectFail = true // 定义一个全局变量，当链接失败时改变变量的值
+            socketConnectFail = true // 定义一个全局变量，当链接失败时改变变量的值
           }
         }
       })
@@ -34,12 +35,12 @@ import {
       reconnectHandle = setInterval(() => {
         wx.closeSocket()
       if(connectCount !== MAX_CONNECTION_NUM) {
-        getApp().globalData.socketTask = wx.connectSocket({ // 创建一个 WebSocket 连接
+        socketTask = wx.connectSocket({ // 创建一个 WebSocket 连接
           url: url,
           fail(err) {
             if (err) {
               connectCount++
-              app.globalData.socketConnectFail = true // 定义一个全局变量，当链接失败时改变变量的值
+              socketConnectFail = true // 定义一个全局变量，当链接失败时改变变量的值
             }
           }
         })
@@ -56,12 +57,12 @@ import {
       reconnectHandle = setInterval(() => {
         wx.closeSocket()
         if(connectCount !== MAX_CONNECTION_NUM) {
-        getApp().globalData.socketTask = wx.connectSocket({ // 创建一个 WebSocket 连接
+          socketTask = wx.connectSocket({ // 创建一个 WebSocket 连接
           url: url,
           fail(err) {
             if (err) {
               connectCount++
-              app.globalData.socketConnectFail = true // 定义一个全局变量，当链接失败时改变变量的值
+              socketConnectFail = true // 定义一个全局变量，当链接失败时改变变量的值
             }
           }
         })

@@ -1,18 +1,36 @@
 // pages/index/index.js
+import {createConnect, connect} from '../../utils/socket'
+import storage from '../../utils/WXStorage.js'
+import * as util from '../../utils/util'
+import * as fileList from '../../utils/fileList'
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    dateBottom: util.formatTimeYmd(new Date()),
+    t101: null,
+    t106: null,
+    t102: null,
+    t103: null,
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+   
+    createConnect()
+    connect((data) => {
+      storage.observeFileChange(data.type, data)
+    })
+    wx.onSocketOpen(() => {
+      storage.addFile(fileList.file109)
+      storage.addFile(fileList.file106)
+      storage.addFile(fileList.file105)
+    })
+    
   },
 
   /**
@@ -42,7 +60,110 @@ Page({
   onUnload: function () {
 
   },
+  getK107(e) {
+    storage.deleteFile(107)
+    storage.addFile({
+      type: '107',
+      intervalTime: 10000,
+      changeCb: (data) => {
+        this.setData({
+          t107: data
+        })
+      },
+      createKey: () => {
+        let val = this.createOptionalStockStr(107, '000000', '000000', e.detail.id, e.detail.codeStr)
+        return val
+      }
+    })
+  },
+  getK103(e) {
+    let storage = this.data.storage
+    storage.deleteFile(103)
+    storage.addFile({
+      type: '103',
+      intervalTime: 7000,
+      changeCb: (data) => {
+        this.setData({
+          t103: data
+        })
+      },
+      createKey: () => {
+        let page = 1
+        if (e.detail.page) {
+          page = e.detail.page
+        }
+        let sort = '0000'
+        if (e.detail.sort) {
+          sort = e.detail.sort
+        }
+        let val = this.createKeyStr2(103, e.detail.code, '000000', true, page, null, sort)
+        return val
+      }
+    })
+  },
+  dateChange(e) {
+    this.setData({
+      dateBottom: e.detail,
+      t101: null,
+      t106: null,
+      t102: null
+    })
+    let storage = this.data.storage
+    storage.deleteFile(101)
+    storage.addFile({
+      type: '101',
+      intervalTime: 6000,
+      changeCb: (data) => {
+        this.setData({
+          t101: data
+        })
+      },
+      createKey: () => {
+        let val = this.createKeyStr2(101, '000000', '000000', true)
+        return val
+      }
+    })
+    storage.addFile({
+      type: '106',
+      changeCb: (data) => {
+        this.setData({
+          t106: data
+        })
 
+        let key = addZeroAfter('a106', 31)
+        wx.setStorage({ key, data })
+      },
+      createKey: () => {
+        let val = this.createKeyStr2(106, '000000', '000000', true)
+        return val
+      }
+    })
+  },
+  stopGetK103() {
+    let storage = this.data.storage
+    storage.deleteFile(103)
+  },
+  closeGetChild() {
+    let storage = this.data.storage
+    storage.deleteFile(102)
+  },
+  getT102(no) {
+    let storage = this.data.storage
+    storage.deleteFile(102)
+    storage.addFile({
+      type: '102',
+      intervalTime: 14000,
+      changeCb: (data) => {
+        this.setData({
+          t102: data
+        })
+      },
+      createKey: () => {
+        let val = this.createKeyStr2(102, '00' + no.detail + '000', '000000', true)
+        return val
+      }
+    })
+  },
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */

@@ -1,5 +1,8 @@
 // pages/index/index.js
-import {createConnect, connect} from '../../utils/socket'
+import {
+  createConnect,
+  connect
+} from '../../utils/socket'
 import storage from '../../utils/WXStorage.js'
 import * as util from '../../utils/util'
 import * as fileList from '../../utils/fileList'
@@ -14,13 +17,14 @@ Page({
     t106: null,
     t102: null,
     t103: null,
+    t107: null
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-   
+  onLoad: function(options) {
+
     createConnect()
     connect((data) => {
       storage.observeFileChange(data.type, data)
@@ -30,34 +34,34 @@ Page({
       storage.addFile(fileList.file106)
       storage.addFile(fileList.file105)
     })
-    
+
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
   getK107(e) {
@@ -131,7 +135,10 @@ Page({
         })
 
         let key = addZeroAfter('a106', 31)
-        wx.setStorage({ key, data })
+        wx.setStorage({
+          key,
+          data
+        })
       },
       createKey: () => {
         let val = this.createKeyStr2(106, '000000', '000000', true)
@@ -164,24 +171,21 @@ Page({
       }
     })
   },
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
+  getK107(e) {
+    let storage = this.data.storage
+    storage.deleteFile(107)
+    storage.addFile({
+      type: '107',
+      intervalTime: 10000,
+      changeCb: (data) => {
+        this.setData({
+          t107: data
+        })
+      },
+      createKey: () => {
+        let val = this.createOptionalStockStr(107, '000000', '000000', e.detail.id, e.detail.codeStr)
+        return val
+      }
+    })
   }
 })

@@ -1,22 +1,14 @@
 <!--pages/index/index.wxml-->
 <view>
-    <view class="search-btn"> 
-        <navigator url="../../pages/search/search" class="btn" bindtap="viewTap" style="height:50%; box-sizing:border-box;width:100%;border-bottom:2rpx solid gray;border-left:2rpx solid gray;padding-bottom:12rpx;padding-left:24rpx;">
-            <image src="../../utils/images/search.png" style='max-width: 50rpx; height: 34rpx;' mode="aspectFit"></image>
-        </navigator>
-    </view>
-    <view class="index-panel"></view>
-     <component-indexSearch
-          t101="{{t101}}"
-          t106="{{t106}}"
-          t102="{{t102}}" 
-          pickerDate='{{dateBottom}}' 
-          bind:getK103="getK103" 
-          t103="{{t103}}" 
-          bind:stopGetK103="stopGetK103" 
-          bind:closeGetChild="closeGetChild" 
-          bind:dateChange="dateChange" 
-          bind:getChild="getT102" 
-          bindtap='closeMenu'></component-indexSearch>
-    <view class="custom-stock"></view>
+  <view class="search-btn">
+    <navigator url="../../pages/search/search" class="btn" bindtap="viewTap" style="height:50%; box-sizing:border-box;width:100%;border-bottom:2rpx solid gray;border-left:2rpx solid gray;padding-bottom:12rpx;padding-left:24rpx;">
+      <image src="../../utils/images/search.png" style='max-width: 50rpx; height: 34rpx;' mode="aspectFit"></image>
+    </navigator>
+  </view>
+  <view class="index-panel"></view>
+  <component-indexSearch t101="{{t101}}" t106="{{t106}}" t102="{{t102}}" pickerDate='{{dateBottom}}' bind:getK103="getK103" t103="{{t103}}" bind:stopGetK103="stopGetK103" bind:closeGetChild="closeGetChild" bind:dateChange="dateChange" bind:getChild="getT102"
+    bindtap='closeMenu'></component-indexSearch>
+  <view class="custom-stock">
+    <component-optionalStock bind:getK107="getK107" t107="{{t107}}"></component-optionalStock>
+  </view>
 </view>

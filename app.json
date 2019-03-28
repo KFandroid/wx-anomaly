@@ -3,7 +3,8 @@
     "pages/index/index",
     "pages/anomaly/anomaly",
     "pages/search/search",
-    "pages/selectIndex/selectIndex"
+    "pages/selectIndex/selectIndex",
+    "pages/addCustomClass/addCustomClass"
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -1,0 +1,49 @@
+/* compontent/indexPanel/indexPanel.wxss */
+.indexpanel{
+    display:flex;
+    flex-wrap:nowrap;
+}
+.index_detail{
+    flex:7;
+    border:2rpx solid #b8b8b7;
+    background-color:#f0f1f1
+}
+.index_detail:nth-child(2){
+    margin: 0 10rpx
+}
+.index_search{
+    background-color:#bdbdbd;
+    width:20rpx;
+    position:relative;
+}
+.index{
+    text-align:center;
+}
+
+.index_name,.index_data{
+    font-weight:800; 
+}
+.index_rf{
+    display:flex;
+    font-size:28rpx;
+    vertical:center;
+}
+.index_num{
+    flex:1;
+}
+.index_percent{
+    flex:1;
+}
+
+.triangle_border_right{
+    width:0;
+    height:0;
+    border-width:20rpx 0 20rpx 20rpx;
+    border-style:solid;
+    border-color:transparent transparent transparent #333;/*透明 透明 透明 灰*/
+
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%)
+}
+

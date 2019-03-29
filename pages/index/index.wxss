@@ -1,1 +1,11 @@
 /* pages/index/index.wxss */
+.search-btn{
+    padding:20rpx 40rpx;
+}
+navigator.sea_btn{
+    height:50%; 
+    box-sizing:border-box;
+    border:2rpx solid gray;
+    border-radius:32rpx;
+    padding-left:60rpx;
+}

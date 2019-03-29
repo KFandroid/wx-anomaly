@@ -1,0 +1,38 @@
+<!--index.wxml-->
+<view class="container">
+  <image class="icon" src="../../utils/images/icon.jpg" mode="aspectFill"/>
+
+  <view class="content {{showContent == true? 'show' : 'hide'}}">
+    <view class="box">
+      <text>账号</text><input type="text" placeholder="" auto-focus/>
+    </view>
+    <view class="box up">
+      <text>密码</text><input type="password" placeholder="" auto-focus password />
+    </view>
+    <view class="box up btn">
+      <button class="register" type="default" size="mini" hover-class="none" bindtap="register">注册</button>
+      <input class="blank" />
+      <button class="login" type="default" size="mini" hover-class="none" bindtap="login">登录</button>
+    </view>  
+  </view>
+  <view class="version_choice {{hideContent == true? 'hide':'show'}}">
+    <view class="radg">
+      <radio-group class="radio-group" bindchange="radioChange">
+        <label class="radio" wx:for="{{items}}" >
+          <radio value="{{item.name}}" checked="{{item.checked}}" />
+          {{item.value}}
+        </label>
+      </radio-group>
+    </view>
+  </view>
+  <view class="popup {{isLoading == true?'hide':'isload'}}"  >
+    <view class="load_box">
+      <view class="loading">
+    </view>
+    <text>加载中。。。</text>
+    </view>
+  </view>
+</view>
+
+
+

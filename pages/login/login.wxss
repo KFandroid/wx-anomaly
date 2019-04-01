@@ -26,19 +26,21 @@ image.icon{
   background-color:#6cf;
   display:flex;
   align-items:center;
-  padding:100rpx 100rpx;
+  padding:100rpx 50rpx;
   flex-wrap: wrap;
+  
 }
 
 .content text{
   display:flex;
-  padding-right:20rpx;
+  padding-right:10rpx;
   flex:1
 }
 input{
   display:flex;
   background-color:white;
-  flex:4;
+  flex:3;
+  max-width:380rpx;
 }
 .box{
   display:flex;
@@ -49,10 +51,14 @@ input{
 }
 
 .blank{
-  flex:3;
+  flex:1;
   visibility:hidden;
 }
-
+.rgq{
+  font-size:28rpx;
+  color:blue ;
+  padding-left: 8rpx;
+}
 
 button{
   display:flex;
@@ -60,10 +66,10 @@ button{
   
   color: white !important;
 }
-button.register{
+button.wx_login{
   background-color:#06c !important;
 }
-button.login{
+button.acc_login{
   background-color:#0c0 !important;
 }
 
@@ -112,4 +118,12 @@ label{
 }
 .isload{
   display:block;
+}
+.qs{
+  display:flex;
+  flex:1;
+  max-width: 50rpx;
+  height: 34rpx;
+  padding-left:8rpx;
+
 }

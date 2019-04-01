@@ -38,7 +38,6 @@
       </picker>
       <image src="../../utils/images/date.png" mode="aspectFit"></image>
     </view> -->
-    <tradeDateSelector bind:bindGetDate="bindGetDate"></tradeDateSelector>
   </view>
   <view class="main" hidden="{{showDetail}}">
     <view class="title">

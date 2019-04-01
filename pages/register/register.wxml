@@ -5,7 +5,7 @@
             账<view class="blank"></view>号:
         </view>
         <input class="tele" type="number" placeholder="请输入手机号" name="account" bindinput="accNull" auto-focus />
-        <view class="send_code">
+        <view class="send_code" bindtap="send_code">
             发送验证码
         </view>
     </view>
@@ -13,7 +13,13 @@
         <view class="reg_title">
             密<view class="blank"></view>码:
         </view>
-        <input type="password" placeholder="请输入密码" name="pwd"  bindinput="pwdNull" auto-focus />
+        <input type="password" placeholder="请确认密码" name="pwd"  bindinput="pwdNull" auto-focus />
+    </view>
+        <view class="reg reg_pass">
+        <view class="reg_title">
+            确认密码:
+        </view>
+        <input type="password" placeholder="请输入密码" name="vpwd"  bindinput="vpwdNull" auto-focus />
     </view>
     <view class="reg reg_vail">
         <view class="reg_title">

@@ -14,9 +14,9 @@
       </view>
     </view>
     <view class="box up btn">
-      <button class="wx_login" type="default" size="mini" hover-class="none" >微信登录</button>
+      <button class="wx_login" type="default" size="mini" bindtap="wxLogin" hover-class="none" >微信登录</button>
       <input class="blank" />
-      <button class="acc_login" type="default" size="mini" hover-class="none" bindtap="login">账号登录</button>
+      <button class="acc_login" type="default" size="mini" hover-class="none" bindtap="accountLogin">账号登录</button>
     </view>  
   </view>
   <view class="version_choice {{hideContent == true? 'hide':'show'}}">

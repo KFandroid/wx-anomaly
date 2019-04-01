@@ -47,17 +47,23 @@ Page({
       url: '../logs/logs'
     })
   },
+  wxLogin: function() {
 
-  //点击登录
-  login:function(e){
-    wx.request({
-      url: 'http://192.168.0.106:8081/userLogin/userLoginMode', // 获取验证码
-      method:'POST',
-      data: {
-        type: 3,
+  },
+  accountLogin: function(){
+    let loginData = {
+      type: 3,
         subscriberPhone: this.data.loginName,
         passWord: this.data.passsWord
-      },
+    }
+    this.login(loginData)
+  },
+  //点击登录
+  login:function(loginData){
+    wx.request({
+      url: 'http://192.168.0.106:8081/userLogin/userLoginMode',
+      method:'POST',
+      data: loginData,
       header: {
         "Content-Type": "application/x-www-form-urlencoded"
       },

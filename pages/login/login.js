@@ -19,6 +19,12 @@ Page({
     isLoading: true,
     
   },
+  changeInput(e) {
+    let key = e.target.dataset.key
+    let obj = {}
+    obj[key] = e.detail.value
+    this.setData(obj)
+  },
   radioChange(e) {
     if(e.detail.value=='vs1'){
       this.setData({
@@ -44,10 +50,43 @@ Page({
 
   //点击登录
   login:function(e){
-    this.setData({
-      showContent: false,
-      hideContent: false
+    wx.request({
+      url: 'http://192.168.0.106:8081/userLogin/userLoginMode', // 获取验证码
+      method:'POST',
+      data: {
+        type: 3,
+        subscriberPhone: this.data.loginName,
+        passWord: this.data.passsWord
+      },
+      header: {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      success: (res) =>{
+        let code = res.data.code  
+        if(code === '01') {
+          this.setData({
+            showContent: false,
+            hideContent: false
+          })
+        } else if(code === '10004') {
+          wx.showToast({
+            title: '请输入正确的密码！',
+            icon: 'none',
+            duration: 4000
+          })
+        } else {
+          wx.showToast({
+            title: '发现未知错误,请重试！',
+            icon: 'none',
+            duration: 4000
+          })
+        }
+      },
+      fail:function(err){  //请求失败
+        console.log(err)
+      },
     })
+    
   },
   //点击注册
   register: function(e){

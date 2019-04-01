@@ -71,7 +71,6 @@ Page({
     this.setData({
       account: e.detail.value
     })
-
   },
   pwdNull: function(e){
     this.setData({
@@ -121,13 +120,12 @@ Page({
 
   } , 
   submit:function(){
-    console.log('231')
     var regTel=new RegExp('0?(13|14|15|18)[0-9]{9}','g');//判断用户输入的是否为手机号码
     var regPwd=new RegExp('^[A-Za-z0-9]+$','g');//判断用户输入的是否为小写字母加数字
     var regCode=new RegExp('/^\d{6}$/','g');//判断用户输入的是否为数字
     var rsTel=regTel.exec(this.data.account);
     var rsPwd=regPwd.exec(this.data.pwd);
-    var rsVpwd=regVpwd.exec(this.data.vpwd);
+    var rsVpwd=regPwd.exec(this.data.vpwd);
     var rsCode=regCode.exec(this.data.code);
     if(!rsTel){
       
@@ -152,24 +150,56 @@ Page({
 
 
       wx.login({
-        success(res) {
+        success: (res) =>{
           if (res.code) {
             console.log('token',res.code)
             // 发起网络请求
             wx.request({
-              url: '192.168.0.106:8081/userLogin/userRegister', // 注册
+              url: 'http://192.168.0.106:8081/userLogin/userRegister', // 注册
+              method:'POST',
               data: {
                 subscriberPhone: this.data.account,
                 verificationCode: this.data.code,
                 passWord: this.data.pwd,
-                secondPassword: this.data.pwd,
+                secondPassword: this.data.vpwd,
                 code:res.code
               },
               header: {
-                'content-type': 'application/json' // 默认值
+                "Content-Type": "application/x-www-form-urlencoded"
               },
               success(res) {
-                console.log(res)
+                if(res.data.code === "01") {
+                  wx.showModal({
+                    title: '提示',
+                    content: '注册成功！',
+                    showCancel: false,
+                    success(res) {
+                      if (res.confirm) {
+                        wx.navigateBack({
+                          delta: 1
+                        })
+                      } else if (res.cancel) {
+                        console.log('用户点击取消')
+                      }
+                    }
+                  })
+                 
+                } else if(res.data.code === "10005") {
+                  wx.showModal({
+                    title: '提示',
+                    content: '该用户已注册！',
+                    showCancel: false,
+                    success(res) {
+                      if (res.confirm) {
+                        wx.navigateBack({
+                          delta: 1
+                        })
+                      } else if (res.cancel) {
+                        console.log('用户点击取消')
+                      }
+                    }
+                  })
+                }
               }
             })
           } else {

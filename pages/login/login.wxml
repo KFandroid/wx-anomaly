@@ -4,10 +4,10 @@
 
   <view class="content {{showContent == true? 'show' : 'hide'}}">
     <view class="box">
-      <text>账号</text><input type="text" placeholder="" auto-focus/>
+      <text>账号</text><input data-key="loginName" bindinput="changeInput" type="text" placeholder="" auto-focus/>
     </view>
     <view class="box up">
-      <text>密码</text><input type="password" placeholder="" auto-focus password />
+      <text>密码</text><input data-key="passsWord" bindinput="changeInput" type="password" placeholder="" auto-focus password />
     </view>
     <view class="box up btn">
       <button class="register" type="default" size="mini" hover-class="none" bindtap="register">注册</button>

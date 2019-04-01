@@ -1,5 +1,6 @@
 import * as utils from './util.js'
 import {createStaticFileKeyStr} from './createKeyFn.js'
+import EventBus from './pubsub.js'
 const app = getApp()
 
 export const file109 = { // 交易日历
@@ -7,14 +8,16 @@ export const file109 = { // 交易日历
     changeCb: (data) => {
       let key = utils.addZeroAfter('a109', 31)
       let newTradeDate = data.data[data.data.length - 1]
-      this.data.static109 = true
       
     //   this.setData({
     //     date: newTradeDate.year + '-' + addZero(newTradeDate.month, 2) + '-' + addZero(newTradeDate.day, 2),
     //     date2: newTradeDate.year + '-' + addZero(newTradeDate.month, 2) + '-' + addZero(newTradeDate.day, 2)
     //   })
+    app.globalData.static109 = true
       wx.setStorage({ key, data })
+      EventBus.emit('loginsuccess')
     //   this.isHasStaticData()
+      
     },
     createKey: () => {
       let val = createStaticFileKeyStr(109)
@@ -30,7 +33,7 @@ export const file105 = { // 所有股票代码名称信息列表
       app.globalData.stockList = data.data
       let key = utils.addZeroAfter('a105', 31)
     //   this.data.static105 = true
-      
+    EventBus.emit('loginsuccess')
       wx.setStorage({ key, data })
     //   this.isHasStaticData()
     },
@@ -66,7 +69,8 @@ export const file106 = { // 项目名称对应表
     //     t106: data,
     //     itemList: itemArr
     //   })
-    //   this.data.static106 = true
+    EventBus.emit('loginsuccess')
+    app.globalData.static106 = true
     //   this.isHasStaticData()
     },
     createKey: () => {

@@ -1,16 +1,18 @@
 //index.js
 //获取应用实例
+import {
+  createConnect,
+  connect
+} from '../../utils/socket'
+import EventBus from '../../utils/pubsub.js'
+import storage from '../../utils/WXStorage.js'
+import * as fileList from '../../utils/fileList'
 const app = getApp()
 
 Page({
   data: {
     items: [
       {name: 'vs1', value: '异动版1.0'},
-      {name: 'CHN', value: '中国', checked: 'true'},
-      {name: 'BRA', value: '巴西'},
-      {name: 'JPN', value: '日本'},
-      {name: 'ENG', value: '英国'},
-      {name: 'TUR', value: '法国'},
     ],
     showContent: true,
     hideContent: true,
@@ -22,6 +24,15 @@ Page({
       this.setData({
         isLoading: false
       })
+      createConnect()
+    connect((data) => {
+      storage.observeFileChange(data.type, data)
+    })
+    wx.onSocketOpen(() => {
+      storage.addFile(fileList.file109)
+      storage.addFile(fileList.file106)
+      storage.addFile(fileList.file105)
+    })
     }
   },
   //事件处理函数
@@ -50,9 +61,13 @@ Page({
        isLoading:false
      })
   },
-
+  loginSuccessFn:function() {
+    wx.redirectTo({
+      url: '../index/index'
+    })
+  },
   onLoad: function () {
-    
+    EventBus.on('loginsuccess', this.loginSuccessFn.bind(this))
   },
   onShow() {
     console.log(this.route)

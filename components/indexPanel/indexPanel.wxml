@@ -1,65 +1,5 @@
 <!--compontent/indexPanel/indexPanel.wxml-->
 <view class="cont">
-<!--<view class="indexpanel">
-
-<view class="index_detail">
-        <view class="index index_name">
-          上证指数  
-        </view>
-        <view class="index index_data">
-            3012.90
-        </view>
-        <view class="index index_rf">
-            <text class="index_num">
-               -30.13 
-            </text>
-            <text class="index_percent">
-                (-0.99%)   
-            </text>
-              
-        </view>
-    </view>
-    <view class="index_detail">
-        <view class="index index_name">
-          上证指数  
-        </view>
-        <view class="index index_data">
-            3012.90
-        </view>
-        <view class="index index_rf">
-            <text class="index_num">
-               -30.13 
-            </text>
-            <text class="index_percent">
-                (-0.99%)   
-            </text>
-              
-        </view>
-    </view>
-    <view class="index_detail">
-        <view class="index index_name">
-          上证指数  
-        </view>
-        <view class="index index_data">
-            3012.90
-        </view>
-        <view class="index index_rf">
-            <text class="index_num">
-               -30.13 
-            </text>
-            <text class="index_percent">
-                (-0.99%)   
-            </text>
-              
-        </view>
-        
-    </view>
-    <view class="index_search">
-                <view class="triangle_border_right">
-                    
-                </view>
-    </view>
-    </view>-->
     <view class="indexpanel" >
         <view class="index_detail"wx:for="{{list}}" wx:key="{{item.index}}">
             <view class="index index_name">
@@ -79,9 +19,9 @@
             </view>
         </view>
         <view class="index_search">
-                <view class="triangle_border_right">
+                <navigator class="triangle_border_right" url="../../pages/selectIndex/selectIndex">
                     
-                </view>
+                </navigator>
         </view>
     </view>
 </view>

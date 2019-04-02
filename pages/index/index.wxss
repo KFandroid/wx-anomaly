@@ -2,10 +2,15 @@
 .search-btn{
     padding:20rpx 40rpx;
 }
-navigator.sea_btn{
-    height:50%; 
+.sea_btn{
+    
     box-sizing:border-box;
     border:2rpx solid gray;
     border-radius:32rpx;
+    font-size: 13px;
     padding-left:60rpx;
+}
+
+.index {
+    margin:0 20rpx;
 }

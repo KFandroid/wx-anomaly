@@ -1,9 +1,9 @@
 <!--compontent/indexPanel/indexPanel.wxml-->
 <view class="cont">
     <view class="indexpanel" >
-        <view class="index_detail"wx:for="{{list}}" wx:key="{{item.index}}">
+        <view class="index_detail"wx:for="{{indexList}}" wx:key="{{index}}">
             <view class="index index_name">
-                    {{item.name}}  
+                    {{item.stockName}}  
             </view>
             <view class="index index_data">
                     {{item.data}}

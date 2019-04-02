@@ -54,3 +54,13 @@ export const formatNumber = n => {
     return [year, month, day].map(formatNumber).join('-')
   }
   
+   /**
+  * 改格式为YYYYMMDD
+  */
+ export const formatDate2 = date => {
+   const year = date.getFullYear()
+   const month = date.getMonth() + 1
+   const day = date.getDate()
+ 
+   return [year, month, day].map(formatNumber).join('')
+ }

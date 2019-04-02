@@ -1,5 +1,8 @@
 import * as utils from './util.js'
-import { createStaticFileKeyStr, createStockInfoKeyStr } from './createKeyFn.js'
+import { createStaticFileKeyStr,
+   createStockInfoKeyStr,
+    createDateKeyStr,
+    createItemKeyStr } from './createKeyFn.js'
 import EventBus from './pubsub.js'
 const app = getApp()
 
@@ -8,7 +11,7 @@ export const file109 = { // 交易日历
     changeCb: (data) => {
       let key = utils.addZeroAfter('a109', 31)
       let newTradeDate = data.data[data.data.length - 1]
-      
+      app.globalData.latestDate = newTradeDate
     //   this.setData({
     //     date: newTradeDate.year + '-' + addZero(newTradeDate.month, 2) + '-' + addZero(newTradeDate.day, 2),
     //     date2: newTradeDate.year + '-' + addZero(newTradeDate.month, 2) + '-' + addZero(newTradeDate.day, 2)
@@ -42,6 +45,26 @@ export const file105 = { // 所有股票代码名称信息列表
       return val
     }
   }
+export const file101 = {
+  type: '101',
+  intervalTime: 6000,
+  changeCb: function(data) {
+    
+    this.setData({
+      t101: data
+    })
+  },
+  createKey: () => {
+    
+    let latestDate = app.globalData.latestDate
+    let dateStr = '' + latestDate.year +  utils.addZero(latestDate.month, 2) + utils.addZero(latestDate.day, 2)
+    
+    let val = createDateKeyStr(101, dateStr)
+    return val
+  }
+}
+
+
 
 export const file106 = { // 项目名称对应表
     type: '106',
@@ -65,10 +88,7 @@ export const file106 = { // 项目名称对应表
       }
       let key = utils.addZeroAfter('a106', 31)
       wx.setStorage({ key, data })
-    //   this.setData({
-    //     t106: data,
-    //     itemList: itemArr
-    //   })
+      app.globalData.t106 = data
     EventBus.emit('loginsuccess')
     app.globalData.static106 = true
     //   this.isHasStaticData()
@@ -99,9 +119,26 @@ export const file106 = { // 项目名称对应表
       },
       intervalTime: 10000,
       createKey: () => {
-        let val = this.createStockInfoKeyStr(108, stockCode)
+        let val = createStockInfoKeyStr(108, stockCode)
         return val
       }
       // isCallMainBack: false
     }
   }
+
+  export const fileFactory102 = (no) => ({ //分项统计数据
+    type: '102',
+    intervalTime: 14000,
+    changeCb: function(data) {
+      this.setData({
+        t102: data
+      })
+    },
+    createKey: () => {
+      let latestDate = app.globalData.latestDate
+      let dateStr = '' + latestDate.year +  utils.addZero(latestDate.month, 2) + utils.addZero(latestDate.day, 2)
+      let val = createItemKeyStr(102, '00' + no.detail + '000', dateStr)
+      return val
+    }
+  })
+  

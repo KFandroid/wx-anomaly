@@ -11,6 +11,7 @@ Component({
       type: Object,
       value: null,
       observer(data) {
+        
         this.initTree()
       }
     },
@@ -18,6 +19,7 @@ Component({
       type: Object,
       value: null,
       observer(data) {
+        
         this.initChild()
       }
     },
@@ -85,8 +87,9 @@ Component({
       EventBus.emit('changeStockAndStockList', {stock, stockList})
     },
     initTree() {
-      if (this.data.t106) {
-        let tree = this.data.t106.data
+      if (app.globalData.t106) {
+        
+        let tree = app.globalData.t106.data
         if (this.data.t101) {
           for (let i = 0; i < tree.length; i++) {
             if (this.data.t101) {
@@ -116,6 +119,7 @@ Component({
             }
           }
         }
+        
         this.setData({
           tree: tree
         })

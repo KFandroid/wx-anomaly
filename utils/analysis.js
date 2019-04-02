@@ -360,7 +360,7 @@ import {
   const toTable117 = function(dataView) {
     const data = {}
     data.type = '117'
-    debugger
+    
     data.code = addZero(dataView.getInt16(2), 3) + addZero(dataView.getInt16(4), 3)
     data.stockCode = addZero(dataView.getInt32(6), 6)
     data.timestamp = addZero(dataView.getInt32(10), 6)
@@ -653,6 +653,7 @@ import {
     if (data.type !== 30) {
       data = JSON.parse(JSON.stringify(data).replace('k101', 'k110'))
     }
+    
     return data
   }
   
@@ -1403,6 +1404,7 @@ import {
   const analysisByte = function(buffer) {
     const dataView = new DataView(buffer)
     const type = dataView.getInt16(0)
+    
     switch (type) {
       case 105:
         return toStockTable(dataView)

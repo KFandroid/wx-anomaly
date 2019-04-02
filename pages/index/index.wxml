@@ -1,5 +1,5 @@
 <!--pages/index/index.wxml-->
-<view>
+<view class="index">
 
   <view class="search-btn">
 
@@ -10,7 +10,15 @@
   </view>
     <component-indexPanel></component-indexPanel>
   <view class="index-panel"></view>
-  <component-indexSearch t101="{{t101}}" t106="{{t106}}" t102="{{t102}}" pickerDate='{{dateBottom}}' bind:getK103="getK103" t103="{{t103}}" bind:stopGetK103="stopGetK103" bind:closeGetChild="closeGetChild" bind:dateChange="dateChange" bind:getChild="getT102"
+  <component-indexSearch t101="{{t101}}" 
+  t106="{{t106}}" 
+  t102="{{t102}}" 
+  pickerDate='{{dateBottom}}'
+   bind:getK103="getK103" 
+   t103="{{t103}}" 
+   bind:stopGetK103="stopGetK103" bind:closeGetChild="closeGetChild"
+    bind:dateChange="dateChange" 
+   bind:getChild="getT102"
     bindtap='closeMenu'></component-indexSearch>
   <view class="custom-stock">
     <component-optionalStock bind:getK107="getK107" t107="{{t107}}"></component-optionalStock>

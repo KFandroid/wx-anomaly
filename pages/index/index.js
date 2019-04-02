@@ -25,16 +25,9 @@ Page({
    */
   onLoad: function(options) {
 
-    createConnect()
-    connect((data) => {
-      storage.observeFileChange(data.type, data)
-    })
-    wx.onSocketOpen(() => {
-      storage.addFile(fileList.file109)
-      storage.addFile(fileList.file106)
-      storage.addFile(fileList.file105)
-    })
-
+    
+    storage.addFile(Object.assign({ctx: this}, fileList.file101))
+    // storage.addFile(Object.assign({ctx: this}, fileList.file101))
   },
 
   /**
@@ -155,37 +148,24 @@ Page({
     storage.deleteFile(102)
   },
   getT102(no) {
-    let storage = this.data.storage
     storage.deleteFile(102)
-    storage.addFile({
-      type: '102',
-      intervalTime: 14000,
-      changeCb: (data) => {
-        this.setData({
-          t102: data
-        })
-      },
-      createKey: () => {
-        let val = this.createKeyStr2(102, '00' + no.detail + '000', '000000', true)
-        return val
-      }
-    })
+    storage.addFile(Object.assign({ctx: this}, fileList.fileFactory102(no)))
   },
   getK107(e) {
-    let storage = this.data.storage
-    storage.deleteFile(107)
-    storage.addFile({
-      type: '107',
-      intervalTime: 10000,
-      changeCb: (data) => {
-        this.setData({
-          t107: data
-        })
-      },
-      createKey: () => {
-        let val = this.createOptionalStockStr(107, '000000', '000000', e.detail.id, e.detail.codeStr)
-        return val
-      }
-    })
+    // let storage = this.data.storage
+    // storage.deleteFile(107)
+    // storage.addFile({
+    //   type: '107',
+    //   intervalTime: 10000,
+    //   changeCb: (data) => {
+    //     this.setData({
+    //       t107: data
+    //     })
+    //   },
+    //   createKey: () => {
+    //     let val = this.createOptionalStockStr(107, '000000', '000000', e.detail.id, e.detail.codeStr)
+    //     return val
+    //   }
+    // })
   }
 })

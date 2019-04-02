@@ -76,6 +76,10 @@ Page({
   },
   //点击登录
   login:function(data){
+    this.setData({
+      showContent: false,
+      hideContent: false
+    })
     wx.request({
       url: 'http://192.168.0.106:8081/userLogin/userLoginMode',
       method:'POST',
@@ -88,10 +92,10 @@ Page({
         let code = res.data.code 
         //reStatus(code); 
         if(code === '01') {
-          this.setData({
-            showContent: false,
-            hideContent: false
-          })
+          // this.setData({
+          //   showContent: false,
+          //   hideContent: false
+          // })
         } else if(code === '10004') {
           wx.showToast({
             title: '请输入正确的密码！',
@@ -131,7 +135,7 @@ Page({
     })
   },
   showLoad:function(e){
-    debugger
+    
      this.setData({
        isLoading:false
      })

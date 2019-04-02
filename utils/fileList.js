@@ -1,5 +1,5 @@
 import * as utils from './util.js'
-import {createStaticFileKeyStr} from './createKeyFn.js'
+import { createStaticFileKeyStr, createStockInfoKeyStr } from './createKeyFn.js'
 import EventBus from './pubsub.js'
 const app = getApp()
 
@@ -76,5 +76,32 @@ export const file106 = { // 项目名称对应表
     createKey: () => {
       let val = createStaticFileKeyStr(106)
       return val
+    }
+  }
+
+  export const fileFactory108 = function(stockCode) {
+    return {
+      type: '108',
+      changeCb: (data) => {
+        let stockInfo = {
+          current: data.data.current,
+          rise: data.data.rise,
+          high: data.data.high,
+          low: data.data.low,
+          close: data.data.close,
+          open: data.data.open,
+          hand: data.data.hand,
+          volume: data.data.volume
+        }
+        this.setData({
+          stockInfo: Object.assign({}, this.data.stockInfo, stockInfo)
+        })
+      },
+      intervalTime: 10000,
+      createKey: () => {
+        let val = this.createStockInfoKeyStr(108, stockCode)
+        return val
+      }
+      // isCallMainBack: false
     }
   }

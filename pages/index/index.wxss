@@ -8,7 +8,7 @@
     border:2rpx solid gray;
     border-radius:32rpx;
     font-size: 13px;
-    padding-left:60rpx;
+    text-align: center;
 }
 
 .index {

@@ -184,6 +184,24 @@ Page({
                     }
                   })
                  
+                } else if(code === '02'){
+                  wx.showToast({
+                    title: '服务器异常',
+                    icon: 'none',
+                    duration: 4000
+                  })
+                }else if(code === '10001'){
+                  wx.showToast({
+                    title: '验证码错误',
+                    icon: 'none',
+                    duration: 4000
+                  })
+                }else if(code === '10003'){
+                  wx.showToast({
+                    title: '两次密码不一样',
+                    icon: 'none',
+                    duration: 4000
+                  })
                 } else if(res.data.code === "10005") {
                   wx.showModal({
                     title: '提示',

@@ -1,14 +1,13 @@
 {
   "pages": [
-    
     "pages/login/login",
     "pages/index/index",
-    
     "pages/register/register",
     "pages/anomaly/anomaly",
     "pages/search/search",
     "pages/selectIndex/selectIndex",
-    "pages/addCustomClass/addCustomClass"
+    "pages/addCustomClass/addCustomClass",
+    "pages/fgPwd/fgPwd"
   ],
   "window": {
     "backgroundTextStyle": "light",

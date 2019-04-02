@@ -7,6 +7,7 @@ import {
 import EventBus from '../../utils/pubsub.js'
 import storage from '../../utils/WXStorage.js'
 import * as fileList from '../../utils/fileList'
+//import reStatus from '../../utils/reStatus'
 const app = getApp()
 
 Page({
@@ -50,13 +51,25 @@ Page({
   wxLogin: function() {
 
   },
-  accountLogin: function(){
-    let loginData = {
-      type: 3,
-        subscriberPhone: this.data.loginName,
-        passWord: this.data.passsWord
+  accountLogin: function(e){
+    
+    if(e.target.dataset.type=='1'){
+      
+      let wxLoginData = {
+        type: 1,
+          
+      }
+      this.login(wxLoginData)
+    }else if(e.target.dataset.type=='3'){
+      let loginData = {
+        type: 3,
+          subscriberPhone: this.data.loginName,
+          passWord: this.data.passsWord
+      }
+      this.login(loginData)
     }
-    this.login(loginData)
+    
+    
   },
   //点击登录
   login:function(loginData){
@@ -68,7 +81,9 @@ Page({
         "Content-Type": "application/x-www-form-urlencoded"
       },
       success: (res) =>{
-        let code = res.data.code  
+        console.log(res);
+        let code = res.data.code 
+        //reStatus(code); 
         if(code === '01') {
           this.setData({
             showContent: false,
@@ -80,9 +95,15 @@ Page({
             icon: 'none',
             duration: 4000
           })
-        } else {
+        } else if(code === '02'){
           wx.showToast({
-            title: '发现未知错误,请重试！',
+            title: '服务器异常',
+            icon: 'none',
+            duration: 4000
+          })
+        }else if(code ==='10002'){
+          wx.showToast({
+            title: '该用户未注册',
             icon: 'none',
             duration: 4000
           })
@@ -98,6 +119,12 @@ Page({
   register: function(e){
     wx.navigateTo({
       url: '../register/register'
+    })
+  },
+  //忘记密码
+  fg_pass: function(){
+    wx.navigateTo({
+      url: '../fgPwd/fgPwd'
     })
   },
   showLoad:function(e){

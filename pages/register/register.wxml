@@ -9,6 +9,12 @@
             发送验证码
         </view>
     </view>
+    <view class="reg reg_vail">
+        <view class="reg_title">
+            验证码:
+        </view>
+        <input type="text" placeholder="请输入验证码" name="code"  bindinput="codeNull" auto-focus />
+    </view>
     <view class="reg reg_pass">
         <view class="reg_title">
             密<view class="blank"></view>码:
@@ -21,12 +27,7 @@
         </view>
         <input type="password" placeholder="请输入密码" name="vpwd"  bindinput="vpwdNull" auto-focus />
     </view>
-    <view class="reg reg_vail">
-        <view class="reg_title">
-            验证码:
-        </view>
-        <input type="text" placeholder="请输入验证码" name="code"  bindinput="codeNull" auto-focus />
-    </view>
+
     <view class="reg_btn">
         <button class="zhuce" type="primary" size="default" plain="{{plain}}"  bindtap="submit" hover-class="none">注册</button>
 

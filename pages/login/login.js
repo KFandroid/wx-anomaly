@@ -18,7 +18,6 @@ Page({
     showContent: true,
     hideContent: true,
     isLoading: true,
-    
   },
   changeInput(e) {
     let key = e.target.dataset.key
@@ -54,12 +53,16 @@ Page({
   accountLogin: function(e){
     
     if(e.target.dataset.type=='1'){
+      wx.login({
+        success: (res)=>{
+          let wxLoginData = {
+            type: 1,
+            code: res.code,  
+          }
+          this.login(wxLoginData)
+        }
+      })
       
-      let wxLoginData = {
-        type: 1,
-          
-      }
-      this.login(wxLoginData)
     }else if(e.target.dataset.type=='3'){
       let loginData = {
         type: 3,
@@ -72,11 +75,11 @@ Page({
     
   },
   //点击登录
-  login:function(loginData){
+  login:function(data){
     wx.request({
       url: 'http://192.168.0.106:8081/userLogin/userLoginMode',
       method:'POST',
-      data: loginData,
+      data: data,
       header: {
         "Content-Type": "application/x-www-form-urlencoded"
       },

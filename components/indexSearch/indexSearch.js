@@ -198,18 +198,24 @@ Component({
     navigateToTable(e) {
       let cno = e.target.dataset.cno
       let name = e.target.dataset.name
-      let date = this.properties.date
       let code = util.addZero('' + this.data.childOneShow, 3) + util.addZero('' + cno, 3)
-      this.setData({
-        title: e.target.dataset.name,
-        cnoTemp: cno,
-        codeTemp: code,
-        showDetail: true
+      wx.navigateTo({
+        url: `../stockTable/stockTable?cno=${code}&name=${name}`,
       })
-      this.triggerEvent('getK103', {
-        cno,
-        code
-      })
+      // let cno = e.target.dataset.cno
+      // let name = e.target.dataset.name
+      // let date = this.properties.date
+      // let code = util.addZero('' + this.data.childOneShow, 3) + util.addZero('' + cno, 3)
+      // this.setData({
+      //   title: e.target.dataset.name,
+      //   cnoTemp: cno,
+      //   codeTemp: code,
+      //   showDetail: true
+      // })
+      // this.triggerEvent('getK103', {
+      //   cno,
+      //   code
+      // })
     },
     bindGetDate(e) {
       this.setData({

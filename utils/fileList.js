@@ -65,6 +65,30 @@ export const file101 = {
 }
 
 
+export const file103 = { // 异动项目对应股票数据
+  type: '103',
+      intervalTime: 7000,
+      changeCb: (data) => {
+        this.setData({
+          t103: data,
+          page: data.page
+        })
+      },
+      createKey: () => {
+        let page = 1
+        if (this.data.page) {
+          page = this.data.page
+        }
+        let sort = '0000'
+        if (e.detail.sort) {
+          sort = e.detail.sort
+        }
+        let val = this.createKeyStr2(103, e.detail.code, '000000', true, page, null, sort)
+        return val
+      }
+}
+
+
 
 export const file106 = { // 项目名称对应表
     type: '106',

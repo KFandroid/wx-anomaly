@@ -42,6 +42,30 @@ export function createStaticFileKeyStr (fileType) {
     }
     return value
   }
+  export function createItemPageKeyStr(fileType, itemCode, dateStr, customPage = 0, sort) {
+    let page = '000'
+    let sortCode = '0000'
+    let stockCode = '000000'
+    if (customPage) {
+      page = addZero(customPage, 3)
+    }
+    if (sort) {
+      sortCode = sort
+    }
+    let timestamp = ''
+    let key = '' + fileType + itemCode + page + stockCode + dateStr
+    let kData = app.globalData['a' + key + sortCode]
+    if (kData) {
+      timestamp = addZero(kData.timestamp, 10)
+    } else {
+      timestamp = addZero('', 10)
+    }
+    let value = {
+      storage: key + sortCode,
+      query: key + timestamp + sortCode
+    }
+    return value
+  }
   export function createDateKeyStr (fileType, dateStr) {
     let page
     let sortCode

@@ -3,7 +3,6 @@
 
 .secondary-title {
   font-size: 34rpx;
-  font-weight: bold;
   position: sticky;
   top:0;
   background-color: #fff;
@@ -33,7 +32,6 @@
   padding: 0 17rpx;
   line-height: 56rpx;
   height:56rpx;
-  border-bottom: 2rpx solid gray;
 }
 
 .flex-box{

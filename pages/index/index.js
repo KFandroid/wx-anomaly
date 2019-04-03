@@ -17,7 +17,8 @@ Page({
     t106: null,
     t102: null,
     t103: null,
-    t107: null
+    t107: null,
+    indexSearchHeight: 300
   },
 
   /**
@@ -41,7 +42,11 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    const sysInfo = wx.getSystemInfoSync()
+    let indexSearchHeight = sysInfo.windowHeight - 110 - 210
+    this.setData({
+      indexSearchHeight,
+    })
   },
 
   /**
@@ -144,7 +149,6 @@ Page({
     storage.deleteFile(103)
   },
   closeGetChild() {
-    let storage = this.data.storage
     storage.deleteFile(102)
   },
   getT102(no) {

@@ -1400,6 +1400,55 @@ import {
     }
     return data
   }
+
+  const toTable145 = function(stockTableView) {
+    let data = {
+      data: []
+    }
+    data.timestamp = stockTableView.getInt32(10)
+    data.type = '145'
+    data.id = stockTableView.getInt32(22)
+    data.code = addZero('', 3) + addZero('', 3)
+    data.stockCode = addZero('', 6)
+    data.date = addZero('', 8)
+    data.totalPage = stockTableView.getInt16(14)
+    data.page = addZero('', 3)
+    data.sortCode = addZero('', 4)
+    let order = 32
+    while (stockTableView.byteLength > 32) {
+      let obj = {}
+      obj.code = addZero(stockTableView.getInt32(order), 6) 
+      order += 4
+      obj.cjj = stockTableView.getFloat32(order).toFixed(2)
+      order += 4
+      obj.zsj = stockTableView.getFloat32(order).toFixed(2)
+      order += 4
+      obj.zf = stockTableView.getFloat32(order).toFixed(2)
+      order += 4
+      obj.kpj = stockTableView.getFloat32(order).toFixed(2)
+      order += 4
+      obj.zgj = stockTableView.getFloat32(order).toFixed(2)
+      order += 4
+      obj.zdj = stockTableView.getFloat32(order).toFixed(2)
+      order += 4
+      obj.cjl = getNumUnit(Math.round((stockTableView.getFloat32(order))))
+      order += 4
+      obj.cje = getNumUnit(Math.round((stockTableView.getFloat32(order))))
+      order += 4
+      let strArr = [];
+      obj.cj = (parseFloat(obj.cjj) - parseFloat(obj.zsj)).toFixed(2) 
+      obj.rise = (parseFloat(obj.cj) / parseFloat(obj.zsj) * 100).toFixed(2)
+      for (let i = 0; i < 17; i++) {
+        strArr.push(stockTableView.getUint8(order))
+        order += 1
+      }
+      obj.time = utf8ByteArrayToString(strArr).replace(/\u0000/g, "")
+      data.data.push(obj)
+      if (order >= stockTableView.byteLength) break;
+    }
+    
+    return data
+  }
   
   const analysisByte = function(buffer) {
     const dataView = new DataView(buffer)
@@ -1522,6 +1571,9 @@ import {
         break
       case 142:
         return toTable142(dataView)  
+        break
+        case 145:
+        return toTable145(dataView)  
         break
     }
   }

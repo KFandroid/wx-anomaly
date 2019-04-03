@@ -6,14 +6,14 @@
                     {{item.stockName}}  
             </view>
             <view class="index index_data">
-                    {{item.data}}
+                    {{item.cjj}}
             </view>
             <view class="index index_rf">
                 <text class="index_num">
-                    {{item.num}}
+                    {{item.cj}}
                 </text>
                 <text class="index_percent">
-                    ({{item.percent}})   
+                    ({{item.rise}})% 
                 </text>
               
             </view>

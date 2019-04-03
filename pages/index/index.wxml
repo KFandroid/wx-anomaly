@@ -16,10 +16,11 @@
   pickerDate='{{dateBottom}}'
    bind:getK103="getK103" 
    t103="{{t103}}" 
+   scrollHeight="{{indexSearchHeight}}"
    bind:stopGetK103="stopGetK103" bind:closeGetChild="closeGetChild"
     bind:dateChange="dateChange" 
    bind:getChild="getT102"
-    bindtap='closeMenu'></component-indexSearch>
+   ></component-indexSearch>
   <view class="custom-stock">
     <component-optionalStock bind:getK107="getK107" t107="{{t107}}"></component-optionalStock>
   </view>

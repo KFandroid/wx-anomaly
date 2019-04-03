@@ -11,20 +11,20 @@
     <view class="flex-row thead">
       <text class="flex-cell flex-row col-16-1">序</text>
       <view class="flex-cell flex-row col-16-4 flex-2-row">
-        <text>名称</text>
-        <text>代码</text>
+        <text class="text">名称</text>
+        <text class="text">代码</text>
       </view>
       <view class="flex-cell flex-row col-16-4 flex-2-row">
-        <text>最新价</text>
-        <text>涨幅</text>
+        <text class="text">最新价</text>
+        <text class="text">涨幅</text>
       </view>
       <view class="flex-cell flex-row col-16-4 flex-2-row">
-        <text>成交量</text>
-        <text>成交额</text>
+        <text class="text">成交量</text>
+        <text class="text">成交额</text>
       </view>
       <view class="flex-cell flex-row col-16-3 flex-2-row">
-        <text>昨收</text>
-        <text>今开</text>
+        <text class="text">昨收</text>
+        <text class="text">今开</text>
       </view>
     </view>
   </view>

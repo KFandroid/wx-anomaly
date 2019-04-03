@@ -92,10 +92,7 @@ Page({
         let code = res.data.code 
         //reStatus(code); 
         if(code === '01') {
-          // this.setData({
-          //   showContent: false,
-          //   hideContent: false
-          // })
+          
         } else if(code === '10004') {
           wx.showToast({
             title: '请输入正确的密码！',
@@ -141,9 +138,12 @@ Page({
      })
   },
   loginSuccessFn:function() {
-    wx.redirectTo({
-      url: '../index/index'
-    })
+    if(app.globalData.static106 && app.globalData.static106 && app.globalData.static106) {
+      wx.redirectTo({
+        url: '../index/index'
+      })
+    }
+    
   },
   onLoad: function () {
     EventBus.on('loginsuccess', this.loginSuccessFn.bind(this))

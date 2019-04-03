@@ -19,13 +19,9 @@
 <view>
   <!-- <template is="test" data="{{itemName}}"/> -->
   <view class="secondary-title">
-    <view class="title">【{{itemName}}】异动【{{dateFlag}}】交易明细</view>
-    <!-- <view class="btn">
-      <image src="../../utils/images/menu.png" style='max-width: 60rpx; height: 68rpx;' mode="aspectFit"></image>
-    </view> -->
+    <view class="detail-title">
+    <text>【{{date}}】【{{itemName}}】 异动对应股票</text>
   </view>
-  <view class="detail-title">
-    <text>{{date}}排序【{{sortItem}}】 第{{page}}页{{pageNum * (page - 1) + 1}}-{{pageNum * page}}名 共{{totalPage}}页</text>
   </view>
   <view class="flex-box flex-column">
     <view class="flex-row thead">

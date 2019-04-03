@@ -6,7 +6,7 @@
     float: right;
 }
 
-.btn3 image {
+.image {
     width: 30rpx;
     height: 30rpx;
     position: absolute;

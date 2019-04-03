@@ -5,5 +5,5 @@
             {{multiArrayShow[0][multiIndexShow[0]]}}-{{multiArrayShow[1][multiIndexShow[1]]}}-{{multiArrayShow[2][multiIndexShow[2]]}}
         </view>
     </picker>
-    <!-- <image src="../../utils/images/date.png" mode="aspectFit"></image> -->
+    <image class="image" src="../../utils/images/date.png" mode="aspectFit"></image>
 </view>

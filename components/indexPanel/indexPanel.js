@@ -1,6 +1,6 @@
 // compontent/indexPanel/indexPanel.js
 import storage from '../../utils/WXStorage'
-import {fileFactory108} from '../../utils/fileList'
+import {fileFactory108, fileFactory145} from '../../utils/fileList'
 
 Component({
   /**
@@ -22,18 +22,21 @@ Component({
   },
   pageLifetimes: {
     show(){
-      let stockList = wx.getStorage('selectIndex')
+      let stockList = wx.getStorageSync('selectIndex')
       if(stockList) {
         this.setData({
           indexList: stockList
         })
       }
-      // for(let i = 0; i < this.data.indexList.length; i++) {
-      //   storage.addFile(fileFactory108(stock.code))
-      // }
+      let stockCodeStr = []
+      for(let i = 0; i < this.data.indexList.length; i++) {
+        stockCodeStr.push(this.data.indexList[i].code)
+      }
+      let file145 =  Object.assign({ctx: this}, fileFactory145(JSON.stringify(stockCodeStr)))
+      storage.addFile(file145)
     },
     hide() {
-      storage.deleteFile()
+      storage.deleteFile(145)
     }
   },
   /**

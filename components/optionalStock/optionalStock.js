@@ -42,7 +42,7 @@ Component({
       this.setData({
         selector: wx.getStorageSync('customStockClass')
       })
-      this.getK107()
+      // this.getK107()
       EventBus.on('updateOptionStock', this.getK107.bind(this))
     }
   },

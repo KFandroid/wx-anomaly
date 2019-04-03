@@ -15,6 +15,16 @@ Component({
         this.initTree()
       }
     },
+    scrollHeight: {
+      type: Number,
+      value: 300,
+      observer(data) {
+        
+       this.setData({
+        scrollHeight: data
+       })
+      }
+    },
     t102: {
       type: Object,
       value: null,

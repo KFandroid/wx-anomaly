@@ -1,5 +1,5 @@
 // pages/stockTable/stockTable.js
-import { formatDate } from '../../utils/util.js'
+import { formatDate, addZero } from '../../utils/util.js'
 // import debounce from '../../utils/debounce.js'
 // import { connect } from '../../utils/socket.js'
 // import WXStorage from '../../utils/WXStorage.js'
@@ -9,14 +9,6 @@ import {
 } from '../../utils/socket'
 import storage from '../../utils/WXStorage.js'
 import * as fileList from '../../utils/fileList'
-const addZero = function (code, zeroNum) {
-  code = String(code).split('')
-  let leftZero = zeroNum - code.length
-  for (let i = 0; i < leftZero; i++) {
-    code.unshift('0')
-  }
-  return code.join('')
-}
 
 const today = formatDate(new Date())
 const app = getApp()
@@ -57,14 +49,20 @@ Component({
       wx.stopPullDownRefresh() // 要手动调用
     },
     onLoad: function (option) {
-      debugger
+      setInterval(() => {
+        wx.setStorage('globalData', app.globalData)
+      }, 10000)
       let latestDate = app.globalData.latestDate
-      let dateStr = '' + latestDate.year + utils.addZero(latestDate.month, 2) + utils.addZero(latestDate.day, 2)
+      let dateStr = '' + latestDate.year + addZero(latestDate.month, 2) + addZero(latestDate.day, 2)
       this.setData({
         date: dateStr,
         itemCode: option.cno,
         itemName: option.name
       })
+      let file103 = fileList.fileFactory103(this.data.itemCode, this.data.page, this.data.sortCode)
+      
+      storage.addFile(Object.assign({ctx: this}, file103))
+      
       if (this.data.date != this.data.today) {
         this.setData({
           dateFlag: '历史',
@@ -159,106 +157,36 @@ Component({
         })
       }
 
-      let keyValue = this.createKeyStr(103, this.data.itemCode, '000000')
-      this.data.storage.getData(keyValue)
+      let file103 = fileList.fileFactory103(this.data.itemCode, this.data.page, this.data.sortCode)
+      storage.deleteFile(103)
+      storage.addFile(Object.assign({ctx: this}, file103))
     },
     pageUp:function () {
       let page = this.data.page - 1
       this.setData({
         page,
       })
-      let keyValue = this.createKeyStr(103, this.data.itemCode, '000000')
-      this.data.storage.getData(keyValue)
+      let file103 = fileList.fileFactory103(this.data.itemCode, this.data.page, this.data.sortCode)
+      storage.deleteFile(103)
+      storage.addFile(Object.assign({ctx: this}, file103))
     },
     pageDown: function () {
       let page = this.data.page + 1
       this.setData({
         page,
       })
-      let keyValue = this.createKeyStr(103, this.data.itemCode, '000000')
-      this.data.storage.getData(keyValue)
+      let file103 = fileList.fileFactory103(this.data.itemCode, this.data.page, this.data.sortCode)
+      storage.deleteFile(103)
+      storage.addFile(Object.assign({ctx: this}, file103))
     }, 
     onShow: function () {
-      let storage = new WXStorage([{
-        type: '103',
-        changeCb: (data) => {
-          this.setData({
-            totalPage: parseInt(data.totalPage)
-          })
-        },
-        createKey: () => {
-          let val = this.createKeyStr(103, this.data.itemCode, '000000')
-          return val
-        }
-      }, {
-        type: '105',
-        changeCb: (data) => {
-        },
-        createKey: () => {
-          let val = this.createKeyStr(105, '000000', '000000', true)
-          return val
-        }
-      }], this, this.convert2B)
-      this.setData({
-        storage
-      })
-      connect((data) => {
-        storage.observeFileChange(data.type, data)
-      })
-
       this.setView()
-      if (this.data.handle108) {
-        clearInterval(this.data.handle108)
-      }
-      let handle = setInterval(() => {
-        const keyValue = this.createKeyStr(103, this.data.itemCode, '000000')
-        this.data.storage.getData(keyValue)
-      }, 6000)
-      this.setData({
-        handle103: handle
-      })
-    },
-    createKeyStr: function (fileType, itemCode, stockCode, isStatic = false) {
-      const addZero = function (code, zeroNum) {
-        code = String(code).split('')
-        let leftZero = zeroNum - code.length
-        for (let i = 0; i < leftZero; i++) {
-          code.unshift('0')
-        }
-        return code.join('')
-      }
-      let page = addZero(this.data.page, 3)
-      let dateStr = this.data.date.split('-').join('')
-      let sortCode
-      if (!isStatic) {
-        dateStr = this.data.date.split('-').join('')
-        sortCode = this.data.sortCode
-      } else {
-        page = '000'
-        dateStr = '00000000'
-        sortCode = '0000'
-      }
-      let timestamp = ''
-      let key = '' + fileType + itemCode + page + stockCode + dateStr
-      let kData = wx.getStorageSync('k' + key + sortCode)
-      if (kData) {
-        timestamp = addZero(kData.timestamp, 10)
-      } else {
-        for (let i = 0; i < 10; i++) {
-          timestamp += '0'
-        }
-      }
-      let value = {
-        storage: key + sortCode,
-        query: key + timestamp + sortCode
-      }
-      return value
     },
     onHide: function () {
-      clearInterval(this.data.handle103)
+      storage.deleteFile(103)
     },
     onUnload: function () {
-      clearInterval(this.data.handle103)
+      storage.deleteFile(103)
     },
     navigateToStock: function (e) {
       let item = e.currentTarget.dataset.item

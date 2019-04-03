@@ -2,6 +2,8 @@ import * as utils from './util.js'
 import { createStaticFileKeyStr,
    createStockInfoKeyStr,
     createDateKeyStr,
+    createAnomalyTableKeyStr,
+    createArrKeyStr,
     createItemKeyStr } from './createKeyFn.js'
 import EventBus from './pubsub.js'
 const app = getApp()
@@ -35,7 +37,7 @@ export const file105 = { // 所有股票代码名称信息列表
       app.globalData.a105 = data
       app.globalData.stockList = data.data
       let key = utils.addZeroAfter('a105', 31)
-    //   this.data.static105 = true
+      app.globalData.static105 = true
     EventBus.emit('loginsuccess')
       wx.setStorage({ key, data })
     //   this.isHasStaticData()
@@ -65,28 +67,7 @@ export const file101 = {
 }
 
 
-export const file103 = { // 异动项目对应股票数据
-  type: '103',
-      intervalTime: 7000,
-      changeCb: (data) => {
-        this.setData({
-          t103: data,
-          page: data.page
-        })
-      },
-      createKey: () => {
-        let page = 1
-        if (this.data.page) {
-          page = this.data.page
-        }
-        let sort = '0000'
-        if (e.detail.sort) {
-          sort = e.detail.sort
-        }
-        let val = this.createKeyStr2(103, e.detail.code, '000000', true, page, null, sort)
-        return val
-      }
-}
+
 
 
 
@@ -113,6 +94,7 @@ export const file106 = { // 项目名称对应表
       let key = utils.addZeroAfter('a106', 31)
       wx.setStorage({ key, data })
       app.globalData.t106 = data
+      app.globalData.a106 = data
     EventBus.emit('loginsuccess')
     app.globalData.static106 = true
     //   this.isHasStaticData()
@@ -164,5 +146,64 @@ export const file106 = { // 项目名称对应表
       let val = createItemKeyStr(102, '00' + no.detail + '000', dateStr)
       return val
     }
+  })
+
+  export const fileFactory103 = (itemCode, page, sortCode) => ({ // 异动项目对应股票数据
+    type: '103',
+        intervalTime: 7000,
+        changeCb: function(data){
+          
+          let tree = []
+          let a105 = app.globalData.a105
+          if (a105) {
+            let data103 = data.data
+            let data105 = a105.data
+            tree = data103
+            for (let i = 0, length = tree.length; i < length; i++) {
+              let stockNo = tree[i].stockNo
+              for (let index = 0, length2 = data105.length; index < length2; index++) {
+                if (data105[index].stockCode === stockNo) {
+                  tree[i] = Object.assign({}, tree[i], data105[index])
+                }
+              }
+            }
+            this.setData({
+              data: tree,
+              page: parseInt(data.page),
+              totalPage: parseInt(data.totalPage)
+            })
+          }
+        },
+        createKey: () => {
+          let latestDate = app.globalData.latestDate
+          let dateStr = '' + latestDate.year +  utils.addZero(latestDate.month, 2) + utils.addZero(latestDate.day, 2)
+          let val = createAnomalyTableKeyStr(103, itemCode, page, dateStr, sortCode)
+          return val
+        }
+  })
+
+  export const fileFactory145 = (str) => ({ // 异动项目对应股票数据
+        type: '145',
+        intervalTime: 4000,
+      changeCb: function(data){
+       let stockList = this.data.indexList
+       for(let j = 0; j < data.data.length; j++) {
+         let temp = data.data[j]
+        for(let i = 0; i < stockList.length; i++) {
+          if(stockList[i].code === temp.code) {
+            this.data.indexList[i] = Object.assign({}, this.data.indexList[i], temp)
+          }
+        }
+       }
+      
+        this.setData({
+          indexList: stockList
+        })
+      },
+      createKey: () => {
+
+        let val = createArrKeyStr(145, utils.addZero('', 10), str)
+        return val
+      }
   })
   

@@ -131,7 +131,7 @@ Page({
       let area2 = xLength * xLength + yLength * yLength
       
       if(area2 < area) {
-        debugger
+        
         let stockCode = this.data.selectIndex[i].stockCode
         // for(let j = 0; j < this.data.selectIndex.length; j++) {
         //   if(this.data.selectIndex[j].stockCode === currentStockCode) {

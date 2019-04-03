@@ -26,11 +26,11 @@
 }
 .index_rf{
     display:flex;
-    font-size:28rpx;
-    vertical:center;
+    font-size:25rpx;
 }
 .index_num{
     flex:1;
+    text-align: right;
 }
 .index_percent{
     flex:1;

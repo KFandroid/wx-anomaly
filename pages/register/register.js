@@ -90,10 +90,9 @@ Page({
   send_code:function(){
     let tel= JSON.stringify(this.data.account);
     console.log(this.data.account);
-    var regTel=new RegExp('0?(13|14|15|18)[0-9]{9}','g');//判断用户输入的是否为手机号码
+    var regTel=new RegExp('/^1\d{10}$/','g');//判断用户输入的是否为手机号码
     var rsTel=regTel.exec(this.data.account);
-    if(!rsTel){
-      
+    if(this.data.account==''){
       wx.showToast({
         title: '请输入的是正确的手机号码',
         icon: 'none',
@@ -120,7 +119,7 @@ Page({
 
   } , 
   submit:function(){
-    var regTel=new RegExp('0?(13|14|15|18)[0-9]{9}','g');//判断用户输入的是否为手机号码
+    var regTel=new RegExp('/^1\d{10}$/','g');//判断用户输入的是否为手机号码
     var regPwd=new RegExp('^[A-Za-z0-9]+$','g');//判断用户输入的是否为小写字母加数字
     var regCode=new RegExp('/^\d{6}$/','g');//判断用户输入的是否为数字
     var rsTel=regTel.exec(this.data.account);

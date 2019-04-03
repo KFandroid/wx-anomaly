@@ -34,7 +34,7 @@
   flex-wrap: wrap;
 }
 
-.main .title>.view, .main .row>.view, .main .row>.child>.view {
+.main .title>view, .main .row>view, .main .row>.child>view {
   padding: 14rpx 0 14rpx 20rpx;
   border-right: 1rpx solid #999;
   border-bottom: 1rpx solid #999;

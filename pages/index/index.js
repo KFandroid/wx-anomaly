@@ -27,7 +27,7 @@ Page({
   onLoad: function(options) {
 
     
-    storage.addFile(Object.assign({ctx: this}, fileList.file101))
+    
     // storage.addFile(Object.assign({ctx: this}, fileList.file101))
   },
 
@@ -43,17 +43,19 @@ Page({
    */
   onShow: function() {
     const sysInfo = wx.getSystemInfoSync()
-    let indexSearchHeight = sysInfo.windowHeight - 110 - 210
+    storage.deleteFile(101)
+    let indexSearchHeight = sysInfo.windowHeight - 110 - 400
     this.setData({
       indexSearchHeight,
     })
+    storage.addFile(Object.assign({ctx: this}, fileList.file101))
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
   onHide: function() {
-
+    
   },
 
   /**
@@ -79,7 +81,6 @@ Page({
     })
   },
   getK103(e) {
-    let storage = this.data.storage
     storage.deleteFile(103)
     storage.addFile({
       type: '103',
@@ -145,7 +146,6 @@ Page({
     })
   },
   stopGetK103() {
-    let storage = this.data.storage
     storage.deleteFile(103)
   },
   closeGetChild() {

@@ -17,6 +17,7 @@
   font-size: 24rpx;
   line-height: 50rpx;
   border-bottom: 2rpx solid gray;
+  border-top: 2rpx solid gray;
 }
 
 .form .label {

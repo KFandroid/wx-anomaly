@@ -22,6 +22,7 @@ Component({
   },
   pageLifetimes: {
     show(){
+      storage.deleteFile(145)
       let stockList = wx.getStorageSync('selectIndex')
       if(stockList) {
         this.setData({

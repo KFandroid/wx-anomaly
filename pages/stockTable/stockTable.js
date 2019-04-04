@@ -159,6 +159,19 @@ Component({
       storage.deleteFile(103)
       storage.addFile(Object.assign({ctx: this}, file103))
     },
+    navigateToStock(e) {
+      app.globalData.stockList = this.data.data
+    let stock = e.currentTarget.dataset.stock
+    wx.setStorageSync(
+      'selectStock',
+      stock
+    )
+    app.globalData.selectStock = stock
+    wx.navigateTo({
+      url: `../stockIndex/stockIndex`,
+    })
+    
+    },
     pageUp:function () {
       let page = this.data.page - 1
       this.setData({
@@ -185,14 +198,6 @@ Component({
     },
     onUnload: function () {
       storage.deleteFile(103)
-    },
-    navigateToStock: function (e) {
-      let item = e.currentTarget.dataset.item
-      let cno = this.data.itemCode
-      let code = '0' + item.code
-      wx.navigateTo({
-        url: `../stockExceptionItem/stockExceptionItem?code=${code}&stockNo=${item.stockNo}&name=${item.stockName}&cno=${cno}`
-      })
     },
   }
 })

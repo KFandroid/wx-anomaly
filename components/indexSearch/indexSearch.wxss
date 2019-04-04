@@ -96,7 +96,7 @@
   border-right: 0;
 }
 
-.main .row .intro .image {
+.main .row .intro image {
   width: 34rpx;
   height: 34rpx;
 }
@@ -131,7 +131,7 @@
   float: right;
 }
 
-.btn3 .image {
+.btn3 image {
   width: 30rpx;
   height: 30rpx;
   position: absolute;

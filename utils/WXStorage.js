@@ -74,7 +74,7 @@
       let newFile = new WXFile(file, this)
       let key = newFile.createKey()
       this.fileList.push(newFile)
-      this.fileTypeList.push(file.type)
+      this.fileTypeList.push('' + file.type)
       this.getData(key)
     }
   
@@ -93,8 +93,10 @@
     }
   
     clearFile() {
-      this.fileList.forEach(file => {
-        file.deleteFile()
+      
+      let fileList = [].concat(this.fileList)
+      fileList.forEach(file => {
+        this.deleteFile(file.type)
       })
     }
   

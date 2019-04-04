@@ -1,5 +1,8 @@
 const util = require('../../utils/util.js')
-import EventBus from '../../utils/pubsub'
+import EventBus from '../../utils/pubsub.js'
+import {
+  recordTime
+} from '../../utils/record.js'
 import {
   formatDate
 } from '../../utils/util.js'
@@ -11,25 +14,13 @@ Component({
       type: Object,
       value: null,
       observer(data) {
-        
         this.initTree()
-      }
-    },
-    scrollHeight: {
-      type: Number,
-      value: 300,
-      observer(data) {
-        
-       this.setData({
-        scrollHeight: data
-       })
       }
     },
     t102: {
       type: Object,
       value: null,
       observer(data) {
-        
         this.initChild()
       }
     },
@@ -97,9 +88,8 @@ Component({
       EventBus.emit('changeStockAndStockList', {stock, stockList})
     },
     initTree() {
-      if (app.globalData.t106) {
-        
-        let tree = app.globalData.t106.data
+      if (this.data.t106) {
+        let tree = this.data.t106.data
         if (this.data.t101) {
           for (let i = 0; i < tree.length; i++) {
             if (this.data.t101) {
@@ -129,7 +119,6 @@ Component({
             }
           }
         }
-        
         this.setData({
           tree: tree
         })
@@ -208,24 +197,18 @@ Component({
     navigateToTable(e) {
       let cno = e.target.dataset.cno
       let name = e.target.dataset.name
+      let date = this.properties.date
       let code = util.addZero('' + this.data.childOneShow, 3) + util.addZero('' + cno, 3)
-      wx.navigateTo({
-        url: `../stockTable/stockTable?cno=${code}&name=${name}`,
+      this.setData({
+        title: e.target.dataset.name,
+        cnoTemp: cno,
+        codeTemp: code,
+        showDetail: true
       })
-      // let cno = e.target.dataset.cno
-      // let name = e.target.dataset.name
-      // let date = this.properties.date
-      // let code = util.addZero('' + this.data.childOneShow, 3) + util.addZero('' + cno, 3)
-      // this.setData({
-      //   title: e.target.dataset.name,
-      //   cnoTemp: cno,
-      //   codeTemp: code,
-      //   showDetail: true
-      // })
-      // this.triggerEvent('getK103', {
-      //   cno,
-      //   code
-      // })
+      this.triggerEvent('getK103', {
+        cno,
+        code
+      })
     },
     bindGetDate(e) {
       this.setData({

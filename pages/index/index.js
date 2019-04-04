@@ -6,6 +6,7 @@ import {
 import storage from '../../utils/WXStorage.js'
 import * as util from '../../utils/util'
 import * as fileList from '../../utils/fileList'
+const app = getApp()
 Page({
 
   /**
@@ -43,6 +44,8 @@ Page({
    */
   onShow: function() {
     const sysInfo = wx.getSystemInfoSync()
+    app.globalData.stockList = app.globalData.a105.data
+    app.globalData.currentPage = 'index'
     storage.deleteFile(101)
     let indexSearchHeight = sysInfo.windowHeight - 110 - 400
     this.setData({

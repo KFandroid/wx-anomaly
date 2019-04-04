@@ -153,9 +153,13 @@ Page({
         isLoading: true,
         items: this.data.items
       })
-      wx.navigateTo({
-        url: '../index/index'
-      })
+      console.log('不停login!!!')
+      if(app.globalData.currentPage !== 'index') {
+        wx.navigateTo({
+          url: '../index/index'
+        })
+      }
+      
     }
     
   },
@@ -163,6 +167,7 @@ Page({
     EventBus.on('loginsuccess', this.loginSuccessFn.bind(this))
   },
   onShow() {
+    app.globalData.currentPage = 'login'
     console.log(this.route)
   }
 })

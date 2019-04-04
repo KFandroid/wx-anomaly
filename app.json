@@ -8,7 +8,10 @@
     "pages/selectIndex/selectIndex",
     "pages/addCustomClass/addCustomClass",
     "pages/fgPwd/fgPwd",
-    "pages/stockTable/stockTable"
+    "pages/stockTable/stockTable",
+    "pages/stockIndex/stockIndex",
+    "pages/indicatorSetting/indicatorSetting",
+    "pages/setting/setting"
   ],
   "window": {
     "backgroundTextStyle": "light",

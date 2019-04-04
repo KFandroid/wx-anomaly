@@ -18,10 +18,10 @@
               
             </view>
         </view>
-        <view class="index_search">
-                <navigator class="triangle_border_right" url="../../pages/selectIndex/selectIndex">
+        <navigator class="index_search"  url="../../pages/selectIndex/selectIndex">
+                <view class="triangle_border_right">
                     
-                </navigator>
-        </view>
+                </view>
+        </navigator>
     </view>
 </view>

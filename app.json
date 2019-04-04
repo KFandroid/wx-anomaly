@@ -8,7 +8,8 @@
     "pages/selectIndex/selectIndex",
     "pages/addCustomClass/addCustomClass",
     "pages/fgPwd/fgPwd",
-    "pages/stockTable/stockTable"
+    "pages/stockTable/stockTable",
+    "pages/stockIndex/stockIndex"
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -25,6 +25,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    
+    this.data.from = options.from
     this.data.stockList = app.globalData.a105.data
   },
   navigateToStockInfo: function (e) {
@@ -35,9 +37,16 @@ Page({
       stock
     )
     app.globalData.selectStock = stock
-    wx.navigateBack({
-      delta: 1
-    })
+    if(this.data.from == 'index') {
+      wx.navigateBack({
+        delta: 1
+      })
+    } else {
+      wx.redirectTo({
+        url: `../stockIndex/stockIndex`,
+      })
+    }
+    
   },
   searchStocks: function (e) {
     let inputVal = e.detail.value

@@ -1,7 +1,7 @@
 // compontent/indexPanel/indexPanel.js
 import storage from '../../utils/WXStorage'
 import {fileFactory108, fileFactory145} from '../../utils/fileList'
-
+const app = getApp()
 Component({
   /**
    * 组件的属性列表
@@ -36,6 +36,7 @@ Component({
       let file145 =  Object.assign({ctx: this}, fileFactory145(JSON.stringify(stockCodeStr)))
       storage.addFile(file145)
     },
+   
     hide() {
       storage.deleteFile(145)
     }
@@ -44,7 +45,18 @@ Component({
    * 组件的方法列表
    */
   methods: {
-    
+    navigateToIndex(e) {
+      app.globalData.stockList = app.globalData.indexList
+    let stock = e.currentTarget.dataset.stock
+    wx.setStorageSync(
+      'selectStock',
+      stock
+    )
+    app.globalData.selectStock = stock
+    wx.navigateTo({
+      url: `../stockIndex/stockIndex`,
+    })
+    },
   },
   
 })

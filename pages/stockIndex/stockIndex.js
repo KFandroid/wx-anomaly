@@ -460,7 +460,7 @@ Page({
       showDeal: !this.data.showDeal
     })
     if (this.data.showDeal) {
-      this.data.storage.addFile({
+      storage.addFile({
         type: '110',
         changeCb: (data) => {
           this.setData({
@@ -474,7 +474,7 @@ Page({
           return val
         }
       })
-      this.data.storage.addFile({
+      storage.addFile({
         type: '122',
         intervalTime: 5000,
         ctx: this,
@@ -504,8 +504,8 @@ Page({
         }
       })
     } else {
-      this.data.storage.deleteFile(110)
-      this.data.storage.deleteFile(122)
+      storage.deleteFile(110)
+      storage.deleteFile(122)
     }
     wx.setStorageSync('showDeal', this.data.showDeal)
     this.setView()
@@ -1549,17 +1549,17 @@ Page({
       })
     }
 
-    // this.data.storage = storage
+    // storage = storage
 
 
     this.setView()
     this.getOtherData()
-    // this.data.storage.getFileData()
+    // storage.getFileData()
     // wx.onSocketOpen(() => { // 监听WebSocket连接打开事件。
-    //   this.data.storage.getFileData()
+    //   storage.getFileData()
     //   this.isHasStaticData()
     //   connect((data) => {
-    //     this.data.storage.observeFileChange(data.type, data)
+    //     storage.observeFileChange(data.type, data)
     //   })
     // })
 
@@ -2316,6 +2316,7 @@ Page({
         index = i
       }
     }
+    debugger
     let nextIndex = (index + direction + stockList.length) % stockList.length
     let currentStock = stockList[nextIndex]
 
@@ -2478,7 +2479,7 @@ Page({
 
     this.setView()
     this.isHasStaticData()
-    this.data.storage.getFileData()
+    storage.getFileData()
 
     this.settingHandler()
     this.initTabSelect()
@@ -2560,37 +2561,37 @@ Page({
       return
     }
     let key = this.createKeyStr3(129, '000000', this.data.stockCode, true, page)
-    this.data.storage.getData(key)
+    storage.getData(key)
   },
   prevStockTarget(page) {
     if (isNaN(page) || page <= 0) {
       return
     }
     let key = this.createKeyStr3(132, '000000', this.data.stockCode, true, page)
-    this.data.storage.getData(key)
+    storage.getData(key)
   },
   prevlhbtarget(page) {
     let key = this.createKeyStr3(133, '000000', '000000', true, page)
-    this.data.storage.getData(key)
+    storage.getData(key)
   },
   prevstocklhb(page) {
 
     let key = this.createKeyStr3(141, '000000', this.data.stockCode, true, page)
-    this.data.storage.getData(key)
+    storage.getData(key)
   },
   getPrevKData(e) {
     if (this.data.selectIndex == 2) {
       let key = this.createKeyStr(113, '000000', this.data.stockCode, true, e.detail)
-      this.data.storage.getData(key)
+      storage.getData(key)
     } else if (this.data.selectIndex == 3) {
       let key = this.createKeyStr(116, '000000', this.data.stockCode, true, e.detail)
-      this.data.storage.getData(key)
+      storage.getData(key)
     } else if (this.data.selectIndex == 4) {
       let key = this.createKeyStr(118, '000000', this.data.stockCode, true, e.detail)
-      this.data.storage.getData(key)
+      storage.getData(key)
     } else if (this.data.selectIndex == 5) {
       let key = this.createKeyStr(123, '000000', this.data.stockCode, true, e.detail)
-      this.data.storage.getData(key)
+      storage.getData(key)
     }
 
   },

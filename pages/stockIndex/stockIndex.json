@@ -22,8 +22,6 @@
     "component-stockDetail": "../../components/stockDetail/stockDetail",
     "component-bestSelect": "../../components/bestSelect/bestSelect",
     "component-monitor": "../../components/monitor/monitor",
-    "component-history": "../../components/history/history",
-    "component-lhbDetail": "../../components/lhbDetail/lhbDetail",
     "component-optionalStock": "../../components/optionalStock/optionalStock"
   }
 }

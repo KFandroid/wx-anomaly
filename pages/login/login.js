@@ -12,6 +12,7 @@ const app = getApp()
 
 Page({
   data: {
+    firstInit: true,
     items: [
       {name: 'vs1', value: '异动版1.0'},
     ],
@@ -30,15 +31,21 @@ Page({
       this.setData({
         isLoading: false
       })
-      createConnect()
-    connect((data) => {
-      storage.observeFileChange(data.type, data)
-    })
-    wx.onSocketOpen(() => {
-      storage.addFile(fileList.file109)
-      storage.addFile(fileList.file106)
-      storage.addFile(fileList.file105)
-    })
+      if(this.data.firstInit) {
+        this.data.firstInit = false
+        createConnect()
+        connect((data) => {
+          storage.observeFileChange(data.type, data)
+        })
+        wx.onSocketOpen(() => {
+          storage.addFile(fileList.file109)
+         storage.addFile(fileList.file106)
+          storage.addFile(fileList.file105)
+         })
+      } else {
+        EventBus.emit('loginsuccess')
+      }
+      
     }
   },
   //事件处理函数
@@ -138,8 +145,15 @@ Page({
      })
   },
   loginSuccessFn:function() {
-    if(app.globalData.static106 && app.globalData.static106 && app.globalData.static106) {
-      wx.redirectTo({
+    if(app.globalData.static105 && app.globalData.static109 && app.globalData.static106) {
+      this.data.items.forEach(el => {
+        el.checked = false
+      })
+      this.setData({
+        isLoading: true,
+        items: this.data.items
+      })
+      wx.navigateTo({
         url: '../index/index'
       })
     }

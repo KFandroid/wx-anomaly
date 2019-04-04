@@ -154,6 +154,7 @@ Page({
           selectIndex: this.data.selectIndex,
           indexInfo: this.data.indexInfo
         })
+        wx.setStorageSync('selectIndex', this.data.selectIndex)
         break
       }
     }

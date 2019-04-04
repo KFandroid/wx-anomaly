@@ -13,13 +13,14 @@ export const file109 = { // 交易日历
     changeCb: (data) => {
       let key = utils.addZeroAfter('a109', 31)
       let newTradeDate = data.data[data.data.length - 1]
+      
       app.globalData.latestDate = newTradeDate
     //   this.setData({
     //     date: newTradeDate.year + '-' + addZero(newTradeDate.month, 2) + '-' + addZero(newTradeDate.day, 2),
     //     date2: newTradeDate.year + '-' + addZero(newTradeDate.month, 2) + '-' + addZero(newTradeDate.day, 2)
     //   })
     app.globalData.static109 = true
-      wx.setStorage({ key, data })
+      wx.setStorageSync(key, data)
       EventBus.emit('loginsuccess')
     //   this.isHasStaticData()
       
@@ -59,6 +60,7 @@ export const file101 = {
   createKey: () => {
     
     let latestDate = app.globalData.latestDate
+    
     let dateStr = '' + latestDate.year +  utils.addZero(latestDate.month, 2) + utils.addZero(latestDate.day, 2)
     
     let val = createDateKeyStr(101, dateStr)
@@ -91,12 +93,13 @@ export const file106 = { // 项目名称对应表
           }
         }
       }
+      app.globalData.static106 = true
       let key = utils.addZeroAfter('a106', 31)
-      wx.setStorage({ key, data })
+      wx.setStorageSync( key, data)
       app.globalData.t106 = data
       app.globalData.a106 = data
     EventBus.emit('loginsuccess')
-    app.globalData.static106 = true
+    
     //   this.isHasStaticData()
     },
     createKey: () => {

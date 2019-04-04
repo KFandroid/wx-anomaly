@@ -31,12 +31,7 @@
   <view class="news" wx:if="{{!showDetail}}">
     【{{date}}】异动统计
     <view class="btn3">
-      <picker mode="date" value="{{date}}" bindchange="bindDateChange">
-        <view class="picker">
-          {{date}}
-        </view>
-      </picker>
-      <image class="image" src="../../utils/images/date.png" mode="aspectFit"></image>
+      
     </view>
   </view>
   <view class="main" hidden="{{showDetail}}">

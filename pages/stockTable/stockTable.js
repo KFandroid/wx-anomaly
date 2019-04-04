@@ -49,9 +49,7 @@ Component({
       wx.stopPullDownRefresh() // 要手动调用
     },
     onLoad: function (option) {
-      setInterval(() => {
-        wx.setStorage('globalData', app.globalData)
-      }, 10000)
+      
       let latestDate = app.globalData.latestDate
       let dateStr = '' + latestDate.year + addZero(latestDate.month, 2) + addZero(latestDate.day, 2)
       this.setData({

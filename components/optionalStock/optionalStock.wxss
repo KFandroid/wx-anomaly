@@ -48,7 +48,7 @@
 }
 
 .flex-cell {
-  line-height: 8vh;
+  /* line-height: 8vh; */
   height: 8vh;
   box-sizing: border-box;
   display: flex;

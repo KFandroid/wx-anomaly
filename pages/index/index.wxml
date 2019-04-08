@@ -9,7 +9,6 @@
     </navigator>
   </view>
     <component-indexPanel></component-indexPanel>
-  <view class="index-panel"></view>
   <component-indexSearch t101="{{t101}}" 
   t106="{{t106}}" 
   t102="{{t102}}" 

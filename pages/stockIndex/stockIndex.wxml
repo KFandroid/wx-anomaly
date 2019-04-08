@@ -226,9 +226,9 @@
         selectIndex="{{selectIndex}}" 
         lsData="{{ydlsData}}" 
         currentData="{{ydCurrentData}}"
-         wx:if="{{subSelect==6&&selectIndex==2 && bottomIndex == 1}}" 
+        class="{{subSelect==6&&selectIndex==2 && bottomIndex == 1 ? '' : 'hide'}}" 
          height="{{underViewHeight}}" 
-         width="{{dealWidth - 3}}"></target-graph>
+         width="{{diagramWidth - 3}}"></target-graph>
          <data-info-graph
         selectIndex="{{selectIndex}}"
          wx:if="{{bottomIndex == 4}}" 

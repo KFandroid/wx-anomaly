@@ -1,12 +1,13 @@
-/* compontent/indexPanel/indexPanel.wxss */
+
 .indexpanel{
     display:flex;
     flex-wrap:nowrap;
 }
 .index_detail{
-    flex:7;
+    flex:1;
     border:2rpx solid #b8b8b7;
-    background-color:#f0f1f1
+    background-color:#f0f1f1;
+    height:130rpx;
 }
 .index_detail:nth-child(2){
     margin: 0 10rpx
@@ -25,15 +26,18 @@
     font-size: 30rpx;
 }
 .index_rf{
-    display:flex;
-    font-size:28rpx;
-    vertical:center;
+    text-align:center;
+    display:block;
+    height: 40rpx;
+    font-size:25rpx;
 }
 .index_num{
-    flex:1;
+    height: 40rpx;
+    display: inline-block;
 }
 .index_percent{
-    flex:1;
+    height: 40rpx;
+    display: inline-block;
 }
 
 .triangle_border_right{
@@ -47,4 +51,3 @@
     top:50%;
     transform:translateY(-50%)
 }
-

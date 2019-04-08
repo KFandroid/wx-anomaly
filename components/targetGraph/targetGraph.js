@@ -2,6 +2,102 @@
 import EventBus from '../../utils/pubsub.js'
 
 const app = getApp()
+function dealTmpData(tempData, index) {
+  let data = []
+  for(let i = 0; i < tempData.length; i++) {
+    let temp = {}
+    temp.mode = tempData[i].mode
+    temp.data = tempData[i].data
+    temp.info = tempData[i].info
+    temp.minNum = Infinity
+    temp.maxNum = -Infinity
+    if(temp.mode === 'updown') {
+      temp.data.forEach(element => {
+        
+        if(element['y1']> temp.maxNum) {
+          temp.maxNum = element['y1']
+        }
+        if(element['y2'] < temp.minNum) {
+          temp.minNum = element['y2']
+        }
+      })
+      if(temp.maxNum > Math.abs(temp.minNum)) {
+        temp.minNum = -temp.maxNum
+      }  else {
+        temp.maxNum = -temp.minNum
+      }
+    } else if(temp.mode === 'normal') {
+      temp.minNum = 0
+      temp.data = temp.data.map(element => {
+        if(element['y']> temp.maxNum) {
+          temp.maxNum = element['y']
+        }
+        return Object.assign({}, element, {
+          y1: element.y,
+          y2: ''
+        })
+      })
+    }
+    if(index === -1 || index >= temp.data.length) {
+      index = temp.data.length - 1
+    }
+    
+    if(temp.data.length) {
+      temp.currentInfo = temp.data[index]
+    }
+    if(temp.hasOwnProperty('currentInfo')) {
+      switch(temp.key) {
+        case 'qk':
+          if(temp.currentInfo.y > 0) {
+            temp.info.title1 = '缺口向上'
+          } else if(temp.currentInfo.y === 0) {
+            temp.info.title1 = '无'
+          } else {
+            temp.info.title1 = '缺口向下'
+          }
+          break
+          case 'jj':
+          if(temp.currentInfo.y > 0) {
+            temp.info.title1 = '有'
+          } else if(temp.currentInfo.y === 0) {
+            temp.info.title1 = '无'
+          } else {
+            temp.info.title1 = '缺口向下'
+          }
+          break
+          case 'zd':
+          if(temp.currentInfo.y > 0) {
+            temp.info.title1 = '涨停'
+          } else if(temp.currentInfo.y === 0) {
+            temp.info.title1 = '无'
+          } else {
+            temp.info.title1 = '跌停'
+          }
+          break
+          case 'wp':
+          if(temp.currentInfo.y > 0) {
+            temp.info.title1 = '有'
+          } else if(temp.currentInfo.y === 0) {
+            temp.info.title1 = '无'
+          } else {
+            temp.info.title1 = '缺口向下'
+          }
+          break
+          case 'kp':
+          if(temp.currentInfo.y > 0) {
+            temp.info.title1 = '有'
+          } else if(temp.currentInfo.y === 0) {
+            temp.info.title1 = '无'
+          } else {
+            temp.info.title1 = '缺口向下'
+          }
+          break  
+      }
+    }
+    data.push(temp)
+  }
+  return data
+}
 Component({
   /**
    * 组件的属性列表
@@ -15,6 +111,7 @@ Component({
       type: Number,
       value: 300,
       observer(newData){
+        
         let graphCount = Math.floor(newData / (60 + 19))
         if(graphCount > 4) {
           graphCount = 4
@@ -417,102 +514,7 @@ Component({
         data.push(allData[sortKey[i]])
       }
       this.data.allData = allData
-      function dealTmpData(tempData, index) {
-        let data = []
-        for(let i = 0; i < tempData.length; i++) {
-          let temp = {}
-          temp.mode = tempData[i].mode
-          temp.data = tempData[i].data
-          temp.info = tempData[i].info
-          temp.minNum = Infinity
-          temp.maxNum = -Infinity
-          if(temp.mode === 'updown') {
-            temp.data.forEach(element => {
-              
-              if(element['y1']> temp.maxNum) {
-                temp.maxNum = element['y1']
-              }
-              if(element['y2'] < temp.minNum) {
-                temp.minNum = element['y2']
-              }
-            })
-            if(temp.maxNum > Math.abs(temp.minNum)) {
-              temp.minNum = -temp.maxNum
-            }  else {
-              temp.maxNum = -temp.minNum
-            }
-          } else if(temp.mode === 'normal') {
-            temp.minNum = 0
-            temp.data = temp.data.map(element => {
-              if(element['y']> temp.maxNum) {
-                temp.maxNum = element['y']
-              }
-              return Object.assign({}, element, {
-                y1: element.y,
-                y2: ''
-              })
-            })
-          }
-          if(index === -1 || index >= temp.data.length) {
-            index = temp.data.length - 1
-          }
-          
-          if(temp.data.length) {
-            temp.currentInfo = temp.data[index]
-          }
-          if(temp.hasOwnProperty('currentInfo')) {
-            switch(temp.key) {
-              case 'qk':
-                if(temp.currentInfo.y > 0) {
-                  temp.info.title1 = '缺口向上'
-                } else if(temp.currentInfo.y === 0) {
-                  temp.info.title1 = '无'
-                } else {
-                  temp.info.title1 = '缺口向下'
-                }
-                break
-                case 'jj':
-                if(temp.currentInfo.y > 0) {
-                  temp.info.title1 = '有'
-                } else if(temp.currentInfo.y === 0) {
-                  temp.info.title1 = '无'
-                } else {
-                  temp.info.title1 = '缺口向下'
-                }
-                break
-                case 'zd':
-                if(temp.currentInfo.y > 0) {
-                  temp.info.title1 = '涨停'
-                } else if(temp.currentInfo.y === 0) {
-                  temp.info.title1 = '无'
-                } else {
-                  temp.info.title1 = '跌停'
-                }
-                break
-                case 'wp':
-                if(temp.currentInfo.y > 0) {
-                  temp.info.title1 = '有'
-                } else if(temp.currentInfo.y === 0) {
-                  temp.info.title1 = '无'
-                } else {
-                  temp.info.title1 = '缺口向下'
-                }
-                break
-                case 'kp':
-                if(temp.currentInfo.y > 0) {
-                  temp.info.title1 = '有'
-                } else if(temp.currentInfo.y === 0) {
-                  temp.info.title1 = '无'
-                } else {
-                  temp.info.title1 = '缺口向下'
-                }
-                break  
-            }
-          }
-          data.push(temp)
-        }
-        return data
-      }
+      
           let kDate = this.data.kDate
           let kDateArr = this.data.kDateArr
           
@@ -521,6 +523,7 @@ Component({
           let showCount = Math.floor(this.data.width / (this.data.rectInterval + this.data.rectWidth))
           
           if(kDate && this.data.selectIndex === 2) {
+            
             let startIndex = data[0].data.length - showCount
             let endIndex = data[0].data.length
             for(let i = 0; i < data[0].data.length; i++) {
@@ -534,6 +537,7 @@ Component({
             
             let start = parseInt(kDate.start.split('-').join(''))
             if(data[0].data.length === 0) {
+              this.suppleyData(data)
               return
             }
             let currentStart = parseInt(data[0].data[0].t.split('-').join(''))
@@ -548,6 +552,7 @@ Component({
             let lastEqualDate = 0
             let dataTmpl 
             if(!data[0].data.length) {
+              this.suppleyData(data)
               return
             }
             
@@ -581,8 +586,12 @@ Component({
               element.data  = element.data.slice(element.data.length - showCount, element.data.length)
             })
           }
+          this.suppleyData(data)
           
-          let tempData = data.slice(0, graphCount)
+    }, 
+    suppleyData(data) {
+      let graphCount = this.data.graphCount
+      let tempData = data.slice(0, graphCount)
           
           tempData = dealTmpData(tempData, this.data.index)
           const tmplData = {
@@ -606,7 +615,6 @@ Component({
           this.setData({
             showData: tempData
           })
-          
     }
   }
 })

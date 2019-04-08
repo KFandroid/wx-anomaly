@@ -13,6 +13,7 @@ import {
   let connectCount = 0
   let socketTask
   let socketConnectFail
+  export const shortConnectUrl = '101.132.168.103:7877'
   export const createConnect = () => {
     
     if (!socketTask) {
@@ -76,3 +77,5 @@ import {
       cb(analysisByte(res.data))
     })
   };
+
+  

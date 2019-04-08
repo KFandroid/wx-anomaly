@@ -61,6 +61,7 @@ import {
       data.data.push(obj)
       if (order >= stockTableView.byteLength) break;
     }
+    
     return data
   }
   
@@ -123,6 +124,7 @@ import {
       })
       if (order >= dataView.byteLength) break;
     }
+    
     return data
   }
   

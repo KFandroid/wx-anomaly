@@ -28,6 +28,7 @@ Page({
     this.setData(obj)
   },
   radioChange(e) {
+    console.log('radio changed!')
     if(e.detail.value=='vs1'){
       this.setData({
         isLoading: false
@@ -155,6 +156,7 @@ Page({
         items: this.data.items
       })
       console.log('不停login!!!')
+      
       if(app.globalData.currentPage !== 'index') {
         wx.navigateTo({
           url: '../index/index'

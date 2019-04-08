@@ -44,6 +44,20 @@ Component({
   },
   pageLifetimes: {
     show() {
+      this.getAndSetData()
+      // 页面被展示
+    },
+    hide() {
+      this.data.hasGetData = false
+    }
+  },
+  lifetimes: {
+    attached() {
+     this.getAndSetData()
+    }
+  },
+  methods: {
+    getAndSetData() {
       if(this.data.hasGetData) {
         return
       }
@@ -71,47 +85,7 @@ Component({
       })
       this.getK107()
       EventBus.on('updateOptionStock', this.getK107.bind(this))
-      // 页面被展示
     },
-    hide() {
-      this.data.hasGetData = false
-    }
-  },
-  lifetimes: {
-    attached() {
-      if(this.data.hasGetData) {
-        return
-      }
-      if (!wx.getStorageSync('customStockClass')) {
-        wx.setStorageSync('customStockClass', [{
-          id: +(+new Date() + "").substring(0, 10),
-          name: '自选股'
-        }])
-      }
-      let t105 = app.globalData.a105.data
-      let data = wx.getStorageSync('customStockTable')['自选股']
-      let allDataTemp = []
-      if (data) {
-        for (let i = 0; i < t105.length; i++) {
-          for (let j = 0; j < data.length; j++) {
-            if (t105[i].stockCode == data[j]) {
-              allDataTemp.push({
-                stockName: t105[i].stockName,
-                stockCode: t105[i].stockCode
-              })
-            }
-          }
-        }
-      }
-      this.setData({
-        selector: wx.getStorageSync('customStockClass'),
-        allData: allDataTemp
-      })
-      this.getK107()
-      EventBus.on('updateOptionStock', this.getK107.bind(this))
-    }
-  },
-  methods: {
     navigateToStock(e) {
       // 改变股票切换列表并进入个股页面
     app.globalData.stockList = this.data.allData

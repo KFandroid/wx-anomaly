@@ -2,6 +2,84 @@
 import debounce from '../../utils/debounce.js'
 import EventBus from '../../utils/pubsub.js'
 const app = getApp()
+function dealTmpData(tempData, index) {
+  let data = []
+  for(let i = 0; i < tempData.length; i++) {
+    let temp = {}
+    temp.data = tempData[i].data
+    temp.info = tempData[i].info
+    temp.key = tempData[i].key
+    temp.minNum = Infinity
+    temp.maxNum = -Infinity
+    temp.data = temp.data.map(element => {
+      if(element['y']> temp.maxNum) {
+        temp.maxNum = element['y']
+      }
+      return Object.assign({}, element, {
+        y: element.y,
+      })
+    })
+    if(index === -1 || index >= temp.data.length) {
+      index = temp.data.length - 1
+    }
+    if(temp.data.length) {
+      temp.currentInfo = temp.data[index]
+    }
+    if(temp.hasOwnProperty('currentInfo')) {
+      switch(temp.key) {
+        case 'qk':
+          if(temp.currentInfo.y > 0) {
+            temp.info.title1 = '缺口向上'
+          } else if(temp.currentInfo.y === 0) {
+            temp.info.title1 = '无'
+          } else {
+            temp.info.title1 = '缺口向下'
+          }
+          break
+          case 'jj':
+          if(temp.currentInfo.y > 0) {
+            temp.info.title1 = '有'
+          } else if(temp.currentInfo.y === 0) {
+            temp.info.title1 = '无'
+          } else {
+            temp.info.title1 = '缺口向下'
+          }
+          break
+          case 'zd':
+          if(temp.currentInfo.y > 0) {
+            temp.info.title1 = '涨停'
+          } else if(temp.currentInfo.y === 0) {
+            temp.info.title1 = '无'
+          } else {
+            temp.info.title1 = '跌停'
+          }
+          break
+          case 'wp':
+          if(temp.currentInfo.y > 0) {
+            temp.info.title1 = '有'
+          } else if(temp.currentInfo.y === 0) {
+            temp.info.title1 = '无'
+          } else {
+            temp.info.title1 = '缺口向下'
+          }
+          break
+          case 'kp':
+          if(temp.currentInfo.y > 0) {
+            temp.info.title1 = '有'
+          } else if(temp.currentInfo.y === 0) {
+            temp.info.title1 = '无'
+          } else {
+            temp.info.title1 = '缺口向下'
+          }
+          break  
+      }
+    }
+    
+    
+    data.push(temp)
+  }
+  return data
+}
 Component({
   /**
    * 组件的属性列表
@@ -65,6 +143,7 @@ Component({
         
         this.data.currentPage = parseInt(newData.page)
         if(Object.keys(newData).length === 0) {
+          this.clearData()
           return 
         }
         for(let key in newData) {
@@ -245,6 +324,14 @@ Component({
    * 组件的方法列表
    */
   methods: {
+    clearData() {
+      for(let key in this.data.historyData) {
+        if(key !== 'page') {
+          this.data.historyData[key] = []
+        }
+      }
+      this.processData()
+    },
     initSetting() {
       let sizeLevel = app.globalData.kSizeLevel
       
@@ -449,6 +536,7 @@ Component({
         
         let start = parseInt(kDate.start.split('-').join(''))
         if(!data[0].data.length) {
+          this.suppleyData(data)
           return
         }
         let currentStart = parseInt(data[0].data[0].t.split('-').join(''))
@@ -462,6 +550,7 @@ Component({
         let lastEqualDate = 0
         let dataTmpl 
         if(!data[0].data.length) {
+          this.suppleyData(data)
           return
         }
         for(let i = 0; i < kDateArr.length - 1; i++) {
@@ -488,86 +577,14 @@ Component({
           element.data  = element.data.slice(element.data.length - showCount, element.data.length)
         })
       }
-      function dealTmpData(tempData, index) {
-        let data = []
-        for(let i = 0; i < tempData.length; i++) {
-          let temp = {}
-          temp.data = tempData[i].data
-          temp.info = tempData[i].info
-          temp.key = tempData[i].key
-          temp.minNum = Infinity
-          temp.maxNum = -Infinity
-          temp.data = temp.data.map(element => {
-            if(element['y']> temp.maxNum) {
-              temp.maxNum = element['y']
-            }
-            return Object.assign({}, element, {
-              y: element.y,
-            })
-          })
-          if(index === -1 || index >= temp.data.length) {
-            index = temp.data.length - 1
-          }
-          if(temp.data.length) {
-            temp.currentInfo = temp.data[index]
-          }
-          if(temp.hasOwnProperty('currentInfo')) {
-            switch(temp.key) {
-              case 'qk':
-                if(temp.currentInfo.y > 0) {
-                  temp.info.title1 = '缺口向上'
-                } else if(temp.currentInfo.y === 0) {
-                  temp.info.title1 = '无'
-                } else {
-                  temp.info.title1 = '缺口向下'
-                }
-                break
-                case 'jj':
-                if(temp.currentInfo.y > 0) {
-                  temp.info.title1 = '有'
-                } else if(temp.currentInfo.y === 0) {
-                  temp.info.title1 = '无'
-                } else {
-                  temp.info.title1 = '缺口向下'
-                }
-                break
-                case 'zd':
-                if(temp.currentInfo.y > 0) {
-                  temp.info.title1 = '涨停'
-                } else if(temp.currentInfo.y === 0) {
-                  temp.info.title1 = '无'
-                } else {
-                  temp.info.title1 = '跌停'
-                }
-                break
-                case 'wp':
-                if(temp.currentInfo.y > 0) {
-                  temp.info.title1 = '有'
-                } else if(temp.currentInfo.y === 0) {
-                  temp.info.title1 = '无'
-                } else {
-                  temp.info.title1 = '缺口向下'
-                }
-                break
-                case 'kp':
-                if(temp.currentInfo.y > 0) {
-                  temp.info.title1 = '有'
-                } else if(temp.currentInfo.y === 0) {
-                  temp.info.title1 = '无'
-                } else {
-                  temp.info.title1 = '缺口向下'
-                }
-                break  
-            }
-          }
-          
-          
-          data.push(temp)
-        }
-        return data
-      }
       
-          let tempData = data.slice(0, graphCount)
+      
+      this.suppleyData(data)
+        
+    },
+    suppleyData(data) {
+      let graphCount = this.data.graphCount
+      let tempData = data.slice(0, graphCount)
           
           tempData = dealTmpData(tempData, this.data.index)
           const tmplData = {
@@ -586,12 +603,10 @@ Component({
           }
           for(let i = tempData.length; i < graphCount; i++) {
             tempData.push(tmplData)
-          }         
-          
+          }
           this.setData({
             showData: tempData
           })
-        
     }
   }
 })

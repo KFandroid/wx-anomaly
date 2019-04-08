@@ -1157,6 +1157,10 @@ Page({
       kLinesData: {
         data: null
       },
+      ydStockLsData: {},
+      ydCurrentData: {},
+      ydlsData: {},
+      ydStockCurrentData: {},
       kLinesDataCurrent: {
         data: null
       },

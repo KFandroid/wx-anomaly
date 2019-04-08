@@ -179,9 +179,9 @@
         <view class="subTab {{subSelect==1?'btn-selected':''}}" wx:if="{{selectIndex == 1 && bottomIndex==1 &&!isStock}}" data-index="1" bindtap='changeSubSelect'>
           监控
         </view>
-        <view class="subTab {{subSelect==2?'btn-selected':''}}" wx:if="{{selectIndex == 1 && bottomIndex==1 &&!isStock}}" data-index="2" bindtap='changeSubSelect'>
+        <!-- <view class="subTab {{subSelect==2?'btn-selected':''}}" wx:if="{{selectIndex == 1 && bottomIndex==1 &&!isStock}}" data-index="2" bindtap='changeSubSelect'>
           统计
-        </view>
+        </view> -->
         <view class="subTab {{subSelect==3?'btn-selected':''}}" wx:if="{{selectIndex == 2 && bottomIndex==1 &&isStock}}" data-index="3" bindtap='changeSubSelect'>
           指标
         </view>
@@ -191,9 +191,9 @@
         <view class="subTab {{subSelect==4?'btn-selected':''}}" wx:if="{{selectIndex == 1 && isStock && bottomIndex==1}}" data-index="4" bindtap='changeSubSelect'>
           明细
         </view>
-        <view class="subTab {{subSelect==5?'btn-selected':''}}" wx:if="{{bottomIndex==1}}" data-index="5" bindtap='changeSubSelect'>
+        <!-- <view class="subTab {{subSelect==5?'btn-selected':''}}" wx:if="{{bottomIndex==1}}" data-index="5" bindtap='changeSubSelect'>
           优选
-        </view>
+        </view> -->
         <!-- 龙虎榜 -->
         <view class="subTab {{subSelect==11?'btn-selected':''}}" wx:if="{{bottomIndex==2&&!isStock&&selectIndex==1}}" data-index="11" bindtap='changeSubSelect'>
           明细
@@ -207,9 +207,9 @@
         <view class="subTab {{subSelect==14?'btn-selected':''}}" wx:if="{{bottomIndex==2&&isStock&&selectIndex == 2}}" data-index="14" bindtap='changeSubSelect'>
           指标
         </view>
-        <view class="subTab {{subSelect==15?'btn-selected':''}}" wx:if="{{bottomIndex==2}}" data-index="15" bindtap='changeSubSelect'>
+        <!-- <view class="subTab {{subSelect==15?'btn-selected':''}}" wx:if="{{bottomIndex==2}}" data-index="15" bindtap='changeSubSelect'>
           选股
-        </view>
+        </view> -->
       </view>
       <view class="left-top" style="height: {{underViewHeight}}px;">
         <component-monitor 

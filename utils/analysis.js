@@ -19,6 +19,7 @@ import {
   }
   
   const toTable107 = function(stockTableView) {
+    
     let data = {
       data: []
     }

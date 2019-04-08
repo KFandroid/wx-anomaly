@@ -36,6 +36,7 @@ Component({
     index: 0,
     allData: [],
     data: [],
+    hasGetData: false,
     selector: [],
     codeDetail: [],
     page: 1,
@@ -68,6 +69,7 @@ Component({
         }])
       }
       let t105 = app.globalData.a105.data
+      
       let data = wx.getStorageSync('customStockTable')['自选股']
       let allDataTemp = []
       if (data) {

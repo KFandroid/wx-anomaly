@@ -26,16 +26,12 @@
     font-size: 30rpx;
 }
 .index_rf{
-    display:flex;
+    text-align: center;
     font-size:25rpx;
 }
 .index_num{
-    flex:1;
-    text-align: right;
 }
 .index_percent{
-    height: 40rpx;
-    display: inline-block;
 }
 
 .triangle_border_right{

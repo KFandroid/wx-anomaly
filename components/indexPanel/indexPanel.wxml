@@ -8,13 +8,9 @@
             <view class="index index_data">
                     {{item.cjj}}
             </view>
-            <view class="index index_rf">
-                <view class="index_num">
+            <view class="index_rf">
                     {{item.cj}}
-                </view>
-                <view class="index_percent">
-                    ({{item.rise}})
-                </view>
+                    ({{item.rise}})%
               
             </view>
         </view>

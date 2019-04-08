@@ -9,6 +9,7 @@
     border-radius:32rpx;
     font-size: 13px;
     text-align: center;
+    background-color: #f0f1f1;
 }
 
 .index {

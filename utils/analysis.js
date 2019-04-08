@@ -1439,7 +1439,7 @@ import {
       order += 4
       let strArr = [];
       obj.cj = (parseFloat(obj.cjj) - parseFloat(obj.zsj)).toFixed(2) 
-      obj.rise = (parseFloat(obj.cj) / parseFloat(obj.zsj) * 100).toFixed(2)
+      obj.rise = (parseFloat(obj.cj) / parseFloat(obj.zsj) * 100).toFixed(2)+'%'
       for (let i = 0; i < 17; i++) {
         strArr.push(stockTableView.getUint8(order))
         order += 1

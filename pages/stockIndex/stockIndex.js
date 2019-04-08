@@ -1551,7 +1551,7 @@ Page({
 
     // storage = storage
 
-
+    this.initTabSelect()
     this.setView()
     this.getOtherData()
     // storage.getFileData()
@@ -1564,7 +1564,7 @@ Page({
     // })
 
 
-    this.initTabSelect()
+    
     if (Object.keys(stockInfo).length > 0) {
       if (this.data.stockChanged) {
 
@@ -1578,6 +1578,11 @@ Page({
         })
       }
     }
+    this.setData({
+      bottomIndex: this.data.bottomIndex,
+      selectIndex: this.data.selectIndex,
+      subSelect: this.data.subSelect
+    })
   },
   getSubTableData() {
     storage.deleteFile(128)
@@ -2316,7 +2321,7 @@ Page({
         index = i
       }
     }
-    debugger
+    
     let nextIndex = (index + direction + stockList.length) % stockList.length
     let currentStock = stockList[nextIndex]
 

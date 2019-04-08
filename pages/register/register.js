@@ -1,4 +1,5 @@
 // pages/register/register.js
+import {shortConnectUrl} from '../../utils/socket.js'
 Page({
 
   /**
@@ -100,7 +101,7 @@ Page({
       })
     }else{
       wx.request({
-        url: 'http://192.168.0.106:8081/userLogin/sendVerificationCode', // 获取验证码
+        url: `http://${shortConnectUrl}/userLogin/sendVerificationCode`,
         method:'POST',
         data: {
           subscriberPhone: tel
@@ -154,7 +155,7 @@ Page({
             console.log('token',res.code)
             // 发起网络请求
             wx.request({
-              url: 'http://192.168.0.106:8081/userLogin/userRegister', // 注册
+              url: `http://${shortConnectUrl}/userLogin/userRegister`, // 注册
               method:'POST',
               data: {
                 subscriberPhone: this.data.account,

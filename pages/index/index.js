@@ -159,20 +159,37 @@ Page({
     storage.addFile(Object.assign({ctx: this}, fileList.fileFactory102(no)))
   },
   getK107(e) {
-    // let storage = this.data.storage
-    // storage.deleteFile(107)
-    // storage.addFile({
-    //   type: '107',
-    //   intervalTime: 10000,
-    //   changeCb: (data) => {
-    //     this.setData({
-    //       t107: data
-    //     })
-    //   },
-    //   createKey: () => {
-    //     let val = this.createOptionalStockStr(107, '000000', '000000', e.detail.id, e.detail.codeStr)
-    //     return val
-    //   }
-    // })
+    
+    storage.deleteFile(107)
+    storage.addFile({
+      type: '107',
+      intervalTime: 10000,
+      changeCb: (data) => {
+        this.setData({
+          t107: data
+        })
+      },
+      createKey: () => {
+        let val = this.createOptionalStockStr(107, '000000', '000000', e.detail.id, e.detail.codeStr)
+        return val
+      }
+    })
+  },
+  createOptionalStockStr: function (fileType, itemCode, stockCode, vn, str) {
+    let page = '000'
+    let dateStr = '00000000'
+    let sortCode = '0000'
+    let timestamp = '0000000000'
+    let key = '' + fileType + itemCode + page + stockCode + dateStr
+    let kData = app.globalData['a' + key + sortCode]
+    if (kData) {
+      // timestamp = addZero(kData.timestamp, 10)
+      // dateStr = addZero(kData.data[kData.data.length - 1].time.replace(':', ''), 8).substring(0, 8)
+    }
+    let value = {
+      storage: key + '0000' + vn + str,
+      query: '' + fileType + itemCode + page + stockCode + dateStr + timestamp + sortCode + vn + str
+    }
+    return value
   }
 })

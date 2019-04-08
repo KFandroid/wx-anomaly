@@ -4,6 +4,7 @@ import {
   createConnect,
   connect
 } from '../../utils/socket'
+import {shortConnectUrl} from '../../utils/socket.js'
 import EventBus from '../../utils/pubsub.js'
 import storage from '../../utils/WXStorage.js'
 import * as fileList from '../../utils/fileList'
@@ -83,12 +84,9 @@ Page({
   },
   //点击登录
   login:function(data){
-    this.setData({
-      showContent: false,
-      hideContent: false
-    })
+    
     wx.request({
-      url: 'http://192.168.0.106:8081/userLogin/userLoginMode',
+      url: `http://${shortConnectUrl}/userLogin/userLoginMode`,
       method:'POST',
       data: data,
       header: {
@@ -99,7 +97,10 @@ Page({
         let code = res.data.code 
         //reStatus(code); 
         if(code === '01') {
-          
+          this.setData({
+            showContent: false,
+            hideContent: false
+          })
         } else if(code === '10004') {
           wx.showToast({
             title: '请输入正确的密码！',

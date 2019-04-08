@@ -45,32 +45,28 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    
     let rowCount = 3
     let heightInterval = 40
     let rangeArr = []
-    for(let i = 0; i < this.data.selectIndex.length; i++) {
-      this.data.selectIndex[i].x = i * 120
-      this.data.selectIndex[i].y = 30
-      rangeArr[i] = {
-        x: i * 120,
-        y: 30
-      }
-      this.data.rangeArr = rangeArr
-      for(let j = 0; j < this.data.indexInfo.length ; j++) {
-        if(this.data.selectIndex[i].code === this.data.indexInfo[j].code) {
-          this.data.indexInfo[j].selected = true
-        }
-      }
-    }
-    this.setData({
-      selectIndex: this.data.selectIndex
-    })
+    
     const query = wx.createSelectorQuery().in(this)
     query.select('.movearea').boundingClientRect(function (res) {
       res.top
     })
     
     query.exec((res) => {
+      let stockList = wx.getStorageSync('selectIndex')
+    
+      if(stockList) {
+        stockList.forEach(item => {
+          item.selected = true
+        })
+        this.setData({
+          selectIndex: stockList
+        })
+      }
+      
       let widthInterval = res[0].width / (rowCount)
       for(let i = 0; i < this.data.indexInfo.length; i++) {
         let xIndex= i % 3
@@ -81,7 +77,27 @@ Page({
           indexInfo: this.data.indexInfo
         })
       }
+      for(let i = 0; i < this.data.selectIndex.length; i++) {
+        this.data.selectIndex[i].x = i * 120
+        this.data.selectIndex[i].y = 30
+        rangeArr[i] = {
+          x: i * 120,
+          y: 30
+        }
+        this.data.rangeArr = rangeArr
+        for(let j = 0; j < this.data.indexInfo.length ; j++) {
+          if(this.data.selectIndex[i].code === this.data.indexInfo[j].code) {
+            this.data.indexInfo[j].selected = true
+          }
+        }
+      }
+      
+      this.setData({
+        selectIndex: this.data.selectIndex,
+        indexInfo: this.data.indexInfo
+      })
     })
+    
   },
 
   /**
@@ -147,6 +163,7 @@ Page({
             this.data.indexInfo[i].selected = false
           }
         }
+        this.data.selectIndex[i].code = this.data.indexInfo[index].code
         this.data.selectIndex[i].stockCode = this.data.indexInfo[index].stockCode
         this.data.selectIndex[i].stockName = this.data.indexInfo[index].stockName
         this.data.indexInfo[index].selected = true

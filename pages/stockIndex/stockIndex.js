@@ -1383,7 +1383,7 @@ Page({
       }
   },
   onShow() {
-    storage.clearFile()
+    
     if (!app.globalData.selectStock) {
       app.globalData.selectStock = wx.getStorageSync('selectStock')
     }
@@ -2998,6 +2998,7 @@ Page({
     })
   },
   getK107(e) {
+    
     storage.deleteFile(107)
     storage.addFile({
       type: '107',
@@ -3009,6 +3010,7 @@ Page({
         })
       },
       createKey: () => {
+        app.globalData
         let val = this.createOptionalStockStr(107, '000000', '000000', e.detail.id, e.detail.codeStr)
         return val
       }

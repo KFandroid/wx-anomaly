@@ -257,6 +257,7 @@ import {
       temp.date = utf8ByteArrayToString(strArr).replace(/\u0000/g, "")
       data.data.push(temp)
     }
+    
     return data
   }
   
@@ -290,7 +291,7 @@ import {
       temp.date = utf8ByteArrayToString(strArr).replace(/\u0000/g, "")
       data.data.push(temp)
     }
-  
+    
     return data
   }
   

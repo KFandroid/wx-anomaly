@@ -48,6 +48,7 @@ App({
   onHide() {
   },
   globalData: {
+    selectCustomStockTableIndex: 0,
     indexList: [{"stockCode":"A00001","code":"060001","stockName":"上证指数","py":"SZZS","market":"上指","type":"", "y":200},
     {"stockCode":"A00002","code":"060002","stockName":"Ａ股指数","py":"AGZS","market":"上指","type":"", "y":200},
     {"stockCode":"A00003","code":"060003","stockName":"Ｂ股指数","py":"BGZS","market":"上指","type":"", "y":200},

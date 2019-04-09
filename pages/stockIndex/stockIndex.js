@@ -340,7 +340,7 @@ Page({
     }],
     bottomTab2: [{
       name: '异动',
-      show: true
+      show: false
     }, {
       name: '龙虎榜',
       show: false
@@ -349,7 +349,7 @@ Page({
       show: true
     }, {
       name: '资料',
-      show: false
+      show: true
     }, {
       name: '两融',
       show: false
@@ -633,6 +633,7 @@ Page({
       this.setData({
         bottomTab: this.data.bottomTab3
       })
+      this.bottomTabChange(1)
       let type
       switch (this.data.selectIndex) {
         case 2:
@@ -741,9 +742,11 @@ Page({
     }
     switch (index) {
       case 1:
+      
         this.setData({
           bottomTab: this.data.bottomTab2
         })
+        this.bottomTabChange(3)
         storage.addFile({
           type: '112',
           ctx: this,
@@ -2803,8 +2806,15 @@ Page({
     })
   },
   bottomTabChange(e) {
+    console.log(typeof e)
+    let index
+    if(typeof e === 'object') {
+      index = e.currentTarget.dataset.index
+    } else {
+      index = e
+    }
     this.setData({
-      bottomIndex: e.currentTarget.dataset.index
+      bottomIndex: index
     })
     this.initTabSelect()
   },

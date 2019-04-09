@@ -59,8 +59,14 @@ Component({
   },
   methods: {
     getAndSetData() {
+      
       if(this.data.hasGetData) {
         return
+      }
+      if(app.globalData.selectCustomStockTableIndex >= 0) {
+        this.setData({
+          index: app.globalData.selectCustomStockTableIndex
+        })
       }
       if (!wx.getStorageSync('customStockClass')) {
         wx.setStorageSync('customStockClass', [{
@@ -68,9 +74,12 @@ Component({
           name: '自选股'
         }])
       }
+      this.setData({
+        selector: wx.getStorageSync('customStockClass')
+      })
       let t105 = app.globalData.a105.data
       
-      let data = wx.getStorageSync('customStockTable')['自选股']
+      let data = wx.getStorageSync('customStockTable')[this.data.selector[this.data.index].name]
       let allDataTemp = []
       if (data) {
         for (let i = 0; i < t105.length; i++) {
@@ -82,7 +91,6 @@ Component({
         }
       }
       this.setData({
-        selector: wx.getStorageSync('customStockClass'),
         allData: allDataTemp
       })
       this.getK107()
@@ -103,6 +111,7 @@ Component({
     
     },
     bindPickerChange: function (e) {
+      app.globalData.selectCustomStockTableIndex = e.detail.value
       this.setData({
         index: e.detail.value,
         allData: [],

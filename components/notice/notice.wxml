@@ -1,0 +1,14 @@
+<!--components/notice/notice.wxml-->
+<scroll-view class="container" scroll-y="true">
+    <view wx:for="{{notieItems}}" class="list-cont">
+        <view class="list-title">
+            <view class="listIcon"></view>
+            <view class="listContent">
+                {{item.content}}
+            </view>
+        </view>
+        <view class="listTime">
+            {{item.time}}
+        </view>
+    </view>
+</scroll-view>

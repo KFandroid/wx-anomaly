@@ -24,7 +24,7 @@
   module.exports.isSelected = isSelected
   module.exports.isHide = isHide
 </wxs>
-<view class="cover">
+<view class="cover" wx:if="{{selectIndex>=2}}">
 <view class="main-title">
 <view class="date">日期：{{showData[0].currentInfo.t}}</view>
 <view class="btn" bindtap="openSetting">指标选项</view>
@@ -67,4 +67,13 @@ bind:ok="settingDialogYes">
       </cover-view>
     </cover-view>
 </popup>    
+</view>
+<view wx:elif="{{selectIndex==1}}" class="cover" id="source">
+  <view class="main-title sou-title">最新资料</view>
+  <scroll-view scroll-y="true" class="scrollDes">
+    <view class="sou-detail" wx:for="{{sourceItems}}" wx:key="index">
+      <view class="sou-left">{{item.title}}</view>
+      <view class="sou-right">{{item.data}}</view>
+    </view>
+  </scroll-view>
 </view>

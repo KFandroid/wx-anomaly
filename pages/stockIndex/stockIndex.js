@@ -424,7 +424,8 @@ Page({
     t136: null,
     t137: null,
     t126: null,
-    t107: null
+    t107: null,
+    t146: null
   },
   getToken() {
     wx.login({
@@ -739,6 +740,7 @@ Page({
             return val
           }
         })
+        
       }
     }
     switch (index) {
@@ -748,6 +750,19 @@ Page({
           bottomTab: this.data.bottomTab2
         })
         this.bottomTabChange(3)
+        storage.addFile({
+          type: '146',
+          ctx: this,
+          changeCb: (data) => {
+            this.setData({
+              t146: data
+            })
+          },
+          createKey: () => {
+            let val = this.createKeyStr3(146, '000000', this.data.stockCode, true, 0, true)
+            return val
+          }
+        })
         storage.addFile({
           type: '112',
           ctx: this,
@@ -2791,7 +2806,6 @@ Page({
     })
   },
   bottomTabChange(e) {
-    console.log(typeof e)
     let index
     if(typeof e === 'object') {
       index = e.currentTarget.dataset.index

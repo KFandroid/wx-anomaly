@@ -22,6 +22,7 @@
     "component-stockDetail": "../../components/stockDetail/stockDetail",
     "component-bestSelect": "../../components/bestSelect/bestSelect",
     "component-monitor": "../../components/monitor/monitor",
-    "component-optionalStock": "../../components/optionalStock/optionalStock"
+    "component-optionalStock": "../../components/optionalStock/optionalStock",
+    "stock-notice" : "../../components/notice/notice"
   }
 }

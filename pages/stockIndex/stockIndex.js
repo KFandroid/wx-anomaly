@@ -1387,6 +1387,19 @@ Page({
         storage.addFile(IntervalFileList[i])
       }
   },
+  settingDate() {
+    let t109 = wx.getStorageSync('a109000000000000000000000000000').data
+
+    this.data.t109 = t109
+    let newTradeDate
+    if (t109) {
+      newTradeDate = t109[t109.length - 1]
+      this.setData({
+        date: newTradeDate.year + '-' + addZero(newTradeDate.month, 2) + '-' + addZero(newTradeDate.day, 2),
+        date2: newTradeDate.year + '-' + addZero(newTradeDate.month, 2) + '-' + addZero(newTradeDate.day, 2)
+      })
+    }
+  },
   onShow() {
     app.globalData.currentPage = 'stockIndex'
     if (!app.globalData.selectStock) {
@@ -1416,22 +1429,7 @@ Page({
     }
 
     // 109 为时间数据
-    let t109 = wx.getStorageSync('a109000000000000000000000000000').data
-
-    // let t109
-    // if(app.globalData.a109 && app.globalData.a109.data) {
-    //   t109 = app.globalData.a109.data
-    // }
-
-    this.data.t109 = t109
-    let newTradeDate
-    if (t109) {
-      newTradeDate = t109[t109.length - 1]
-      this.setData({
-        date: newTradeDate.year + '-' + addZero(newTradeDate.month, 2) + '-' + addZero(newTradeDate.day, 2),
-        date2: newTradeDate.year + '-' + addZero(newTradeDate.month, 2) + '-' + addZero(newTradeDate.day, 2)
-      })
-    }
+    this.settingDate()
     this.closeAllCrosshair()
 
 
@@ -2366,24 +2364,7 @@ Page({
   initData(stock) {
     
     let stockInfo = stock
-    this.data.stockChanged = true
-    if (Object.keys(stockInfo).length > 0) {
-      this.initTabSelect()
-      this.setData({
-        stockCode: addZero(stockInfo.code, 6),
-        stockInfo: {
-          name: stockInfo.stockName,
-          stockNo: stockInfo.stockCode
-        }
-      })
-    }
-    let data = wx.getStorageSync(
-      'globalData' + this.data.stockCode
-    )
-
-    if (data !== '') {
-      app.globalData = Object.assign({}, app.globalData, data)
-    }
+    this.init(stockInfo)
     this.clearData()
     storage.clearFile()
     if (this.data.stockChanged) {

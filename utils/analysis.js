@@ -1453,7 +1453,38 @@ import {
     
     return data
   }
-  
+  const toTable146 = function(dataView) {
+    let data = {}
+    data.type = '146'
+    // 
+    data.code = addZero(dataView.getInt16(2), 3) + addZero(dataView.getInt16(4), 3)
+    data.stockCode = addZero(dataView.getInt32(6), 6)
+    data.timestamp = addZero(dataView.getInt32(10), 10)
+    data.date = addZero('', 8)
+    data.totalPage = addZero(dataView.getInt16(14), 3)
+    data.page = addZero(dataView.getInt16(16), 3)
+    data.sortCode = addZero('' + dataView.getInt16(18) + dataView.getInt16(20), 4)
+    data.data = []
+    let order = 32
+    while(order > dataView.byteLength){
+      let obj = {}
+      obj.titleLength = dataView.getInt16(order)
+      order+=2
+      obj.data = dataView.getInt32(order)
+      obj+=4
+      let strArr=[]
+      order += obj.titleLength;
+      for (let i = 0; i < obj.titleLength; i++) {
+        strArr.push(dataView.getUint8(order))
+        
+      }
+      obj.title = utf8ByteArrayToString(strArr).replace(/\u0000/g, "")
+      data.data.push(obj)
+    }
+    
+    
+    return data
+  }
   const analysisByte = function(buffer) {
     const dataView = new DataView(buffer)
     const type = dataView.getInt16(0)
@@ -1576,9 +1607,12 @@ import {
       case 142:
         return toTable142(dataView)  
         break
-        case 145:
+      case 145:
         return toTable145(dataView)  
         break
+      case 146:
+        return toTable146(dataView)  
+        break  
     }
   }
   

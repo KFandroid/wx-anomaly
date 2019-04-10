@@ -2,10 +2,12 @@
 /* components/targetGraph/targetGraph.wxss */
 .cover{
     overflow: auto;
+    position:relative;
 }
 .main-title {
     font-size: 24rpx;
     border-bottom: 2rpx solid gray;
+    padding-left:8rpx;
 }
 .main-title:after{/*清除浮动*/
     content: '';
@@ -81,4 +83,30 @@
      
     border: 2rpx solid gray;
     border-top: none;
+  }
+    .sou-title{
+        height:48rpx;
+        line-height:48rpx;
+        
+    }
+    .scrollDes{
+        height:480rpx;
+    }
+  .sou-detail{
+      display:flex;
+      font-size:24rpx;
+      height:48rpx;
+      line-height:48rpx;
+
+  }
+  .sou-left,.sou-right{
+      flex:1;
+      padding-left:8rpx;
+      padding-right:8rpx;
+  }
+  .sou-left{
+      text-align:left;
+  }
+  .sou-right{
+      text-align:right;
   }

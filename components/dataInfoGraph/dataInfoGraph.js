@@ -57,6 +57,15 @@ Component({
    * 组件的属性列表
    */
   properties: {
+    selectIndex: {
+      type: Number,
+      value: 2,
+      observer(newData){
+        this.setData({
+          selectIndex: newData
+        })
+      }
+    },
     barGraphHeight: {
       type: Number,
       value: 60,
@@ -117,6 +126,47 @@ Component({
         if(newData.length) {
           this.processData()
         }
+
+        //个股资料数据展示
+        let souIndex=newData.length
+        let oldData = newData[souIndex-1]
+        console.log(oldData)
+        let data = {
+          /* 'lb': 0,
+          'hs': 0,
+          'syl': 0,
+          'sjl': 0, */
+          'zgb': getNumUnit(oldData.zgb),
+          'ltag': getNumUnit(oldData.ltag),
+          'zzc': getNumUnit(oldData.zzc),
+          'mgjlr': oldData.mgjlr,
+          'mggjj': oldData.mggjj,
+          'mgwfp': oldData.mgwfp,
+          'mgxjl': oldData.mgxjl,
+          'cqfz': getNumUnit(oldData.cqfz),
+          'gjj': getNumUnit(oldData.gjj),
+          'jlr': getNumUnit(oldData.jlr),
+          'jyxjl': getNumUnit(oldData.jyxjl),
+          'kzrcg': getNumUnit(oldData.kzrcg),
+          'ldfz': getNumUnit(oldData.ldfz),
+          'wfplr': getNumUnit(oldData.wfplr),
+          'yyzsr': getNumUnit(oldData.yyzsr),
+          'zfz': getNumUnit(oldData.zfz)
+
+        }
+        
+        //let sourceItems = this.data.sourceItems
+        let sourceItemsArr = []
+        for(let key in data) {
+          
+          this.data.sourceItem[key].data = data[key]
+          sourceItemsArr.push(this.data.sourceItem[key])
+        }
+        this.setData({
+          sourceItems: sourceItemsArr
+        })
+        
+        
       }
     }
   },
@@ -125,6 +175,90 @@ Component({
    * 组件的初始数据
    */
   data: {
+    sourceItem: {
+      lb: {
+        title:'量比',
+        data: 0
+      },
+      hs: {
+        title: '换手',
+        data: '0.27%'
+      },
+      syl: {
+        title: '市盈率',
+        data: '0.27%'
+      },
+      sjl: {
+        title: '市净率',
+        data: '0.27%'
+      },
+      mgjlr: {
+        title: '每股净利润',
+        data: ''
+      },
+      mggjj: {
+        title: '每股净利润',
+        data: 0
+      },
+      mgwfp: {
+        title: '每股未分配',
+        data: 0
+      },
+      mgxjl: {
+        title: '每股现金流',
+        data: 0
+      },
+      ltag: {
+        title: '流通A股',
+        data: 0
+      },
+      zgb: {
+        title: '总股本',
+        data: 0
+      },
+      zzc: {
+        title: '总资产',
+        data: 0
+      },
+      cqfz: {
+        title: '长期负债',
+        data: 0
+      },
+      gjj: {
+        title: '公积金',
+        data: 0
+      },
+      jlr: {
+        title: '净利润',
+        data: 0
+      },
+      jyxjl: {
+        title: '经营现金流',
+        data: 0
+      },
+      kzrcg: {
+        title: '控制人参股',
+        data: 0
+      },
+      ldfz: {
+        title: '流动负债',
+        data: 0
+      },
+      wfplr: {
+        title: '未分配利润',
+        data: 0
+      },
+      yyzsr: {
+        title: '营业总收入',
+        data: 0
+      },
+      zfz: {
+        title: '总负债',
+        data: 0
+      }
+
+    },
+    sourceItems: [],
     sizeType: [{
       width: 1,
       interval: 1

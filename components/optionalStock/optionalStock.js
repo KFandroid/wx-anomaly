@@ -1,5 +1,6 @@
 // components/optionalStock/optionalStock.js
 import EventBus from '../../utils/pubsub.js'
+import storage from '../../utils/WXStorage.js'
 const app = getApp()
 Component({
   properties: {
@@ -52,16 +53,22 @@ Component({
   },
   pageLifetimes: {
     show() {
+      this.data.hasGetData = false
       this.getAndSetData()
       // 页面被展示
     },
     hide() {
+      storage.deleteFile(107)
       this.data.hasGetData = false
     }
   },
   lifetimes: {
     attached() {
      this.getAndSetData()
+    },
+    detached() {
+      storage.deleteFile(107)
+      this.data.hasGetData = false
     }
   },
   methods: {
@@ -70,11 +77,7 @@ Component({
       if(this.data.hasGetData) {
         return
       }
-      if(app.globalData.selectCustomStockTableIndex >= 0) {
-        this.setData({
-          index: app.globalData.selectCustomStockTableIndex
-        })
-      }
+      
       if (!wx.getStorageSync('customStockClass')) {
         wx.setStorageSync('customStockClass', [{
           id: +(+new Date() + "").substring(0, 10),
@@ -84,12 +87,18 @@ Component({
       this.setData({
         selector: wx.getStorageSync('customStockClass')
       })
-      let t105 = app.globalData.a105.data
-      if(this.data.selector[this.data.index] === undefined) {
+      if(app.globalData.selectCustomStockTableIndex >= 0) {
+        this.data.selector
+        
+        if(this.data.selector[this.data.index] === undefined) {
+          app.globalData.selectCustomStockTableIndex = 0
+        }
         this.setData({
-          index: 0
+          index: app.globalData.selectCustomStockTableIndex
         })
       }
+      let t105 = app.globalData.a105.data
+      
       
       let data = wx.getStorageSync('customStockTable')[this.data.selector[this.data.index].name]
       
@@ -157,6 +166,7 @@ Component({
       this.getK107()
     },
     getK107() {
+      
       this.data.hasGetData = true
       let codeArr = []
       let temp = wx.getStorageSync('customStockTable')[this.data.selector[this.data.index].name]

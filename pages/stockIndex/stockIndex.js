@@ -454,6 +454,7 @@ Page({
       this.getStaticData()
     }
   },
+  
   //事件处理函数
   hideDeal() {
     this.setData({
@@ -1140,6 +1141,7 @@ Page({
     EventBus.on('diagramUnableLeft', this.diagramUnableLeft.bind(this))
     EventBus.on('resetDiagram', this.resetDiagram.bind(this))
     EventBus.on('closeDiagram', this.closeDiagram.bind(this))
+    EventBus.on('reloadstock', this.initData.bind(this))
     this.popup = this.selectComponent("#popup")
     this.stockDeal = this.selectComponent("#stockDeal")
     this.diagram = this.selectComponent("#diagram")
@@ -1386,7 +1388,7 @@ Page({
       }
   },
   onShow() {
-    
+    app.globalData.currentPage = 'stockIndex'
     if (!app.globalData.selectStock) {
       app.globalData.selectStock = wx.getStorageSync('selectStock')
     }
@@ -2075,6 +2077,7 @@ Page({
     })
     query.exec((res) => {
       underViewHeight = underViewHeight - res[4].height - res[5].height - 51
+      
       this.setData({
         underViewHeight,
       })
@@ -2361,6 +2364,7 @@ Page({
     })
   },
   initData(stock) {
+    
     let stockInfo = stock
     this.data.stockChanged = true
     if (Object.keys(stockInfo).length > 0) {

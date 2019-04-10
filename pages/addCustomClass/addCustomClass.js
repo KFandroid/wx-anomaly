@@ -95,9 +95,12 @@ Page({
     }
   },
   nameInput(e) {
-    this.setData({
-      customName: e.detail.value
-    })
+    if(e.detail.value !== '自选股') {
+      this.setData({
+        customName: e.detail.value
+      })
+    }
+    
   },
   deleteItem(e) {
     let temp = wx.getStorageSync('customStockClass')

@@ -3,6 +3,13 @@ import EventBus from '../../utils/pubsub.js'
 const app = getApp()
 Component({
   properties: {
+    scrollHeight: {
+      type: Number,
+      value: 280,
+      observer(data) {
+
+      }
+    },
     t107: {
       type: Object,
       value: null,
@@ -78,8 +85,14 @@ Component({
         selector: wx.getStorageSync('customStockClass')
       })
       let t105 = app.globalData.a105.data
+      if(this.data.selector[this.data.index] === undefined) {
+        this.setData({
+          index: 0
+        })
+      }
       
       let data = wx.getStorageSync('customStockTable')[this.data.selector[this.data.index].name]
+      
       let allDataTemp = []
       if (data) {
         for (let i = 0; i < t105.length; i++) {
@@ -105,9 +118,14 @@ Component({
       stock
     )
     app.globalData.selectStock = stock
-    wx.navigateTo({
-      url: `../stockIndex/stockIndex`,
-    })
+    if(app.globalData.currentPage == 'stockIndex') {
+      EventBus.emit('reloadstock', stock)
+    } else {
+      wx.navigateTo({
+        url: `../stockIndex/stockIndex`,
+      })
+    }
+    
     
     },
     bindPickerChange: function (e) {

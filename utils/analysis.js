@@ -1454,6 +1454,7 @@ import {
     return data
   }
   const toTable146 = function(dataView) {
+    debugger
     let data = {}
     data.type = '146'
     // 
@@ -1466,19 +1467,21 @@ import {
     data.sortCode = addZero('' + dataView.getInt16(18) + dataView.getInt16(20), 4)
     data.data = []
     let order = 32
-    while(order > dataView.byteLength){
+    while(order < dataView.byteLength){
       let obj = {}
       obj.titleLength = dataView.getInt16(order)
       order+=2
-      obj.data = dataView.getInt32(order)
-      obj+=4
+      obj.time = dataView.getInt32(order)
+      order+=4
       let strArr=[]
-      order += obj.titleLength;
+      debugger
       for (let i = 0; i < obj.titleLength; i++) {
         strArr.push(dataView.getUint8(order))
         
+      order += 1
+        
       }
-      obj.title = utf8ByteArrayToString(strArr).replace(/\u0000/g, "")
+      obj.content = utf8ByteArrayToString(strArr).replace(/\u0000/g, "")
       data.data.push(obj)
     }
     

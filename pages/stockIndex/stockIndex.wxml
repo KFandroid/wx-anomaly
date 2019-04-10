@@ -213,7 +213,8 @@
       </view>
       <view class="left-top" style="height: {{underViewHeight}}px;">
         <stock-notice 
-        selectIndex="{{selectIndex}}"
+        height="{{underViewHeight - 40}}"
+        t146="{{t146}}"
         wx:if="{{bottomIndex==3}}"></stock-notice>
         <component-monitor 
         wx:if="{{subSelect == 1 && bottomIndex != 7}}" t126="{{t126}}" bind:getMore="getMorek127" t127="{{t127}}" bind:getK126="getK126"></component-monitor>

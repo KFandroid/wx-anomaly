@@ -1155,6 +1155,7 @@ Page({
     EventBus.on('diagramUnableRight', this.diagramUnableRight.bind(this))
     EventBus.on('diagramUnableLeft', this.diagramUnableLeft.bind(this))
     EventBus.on('resetDiagram', this.resetDiagram.bind(this))
+    EventBus.on('get146', this.get146.bind(this))
     EventBus.on('closeDiagram', this.closeDiagram.bind(this))
     EventBus.on('reloadstock', this.initData.bind(this))
     this.popup = this.selectComponent("#popup")
@@ -2369,6 +2370,25 @@ Page({
   diagramUnableLeft() {
     this.setData({
       diagramLeft: false
+    })
+  },
+  get146(param) {
+    let pageNum = 0
+    if(param) {
+      pageNum = param.pageNum
+    }
+    storage.addFile({
+      type: '146',
+      ctx: this,
+      changeCb: (data) => {
+        this.setData({
+          t146: data
+        })
+      },
+      createKey: () => {
+        let val = this.createKeyStr3(146, '000000', this.data.stockCode, true, pageNum, true)
+        return val
+      }
     })
   },
   diagramUnableRight() {

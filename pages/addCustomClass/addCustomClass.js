@@ -95,9 +95,12 @@ Page({
     }
   },
   nameInput(e) {
-    this.setData({
-      customName: e.detail.value
-    })
+    if(e.detail.value !== '自选股') {
+      this.setData({
+        customName: e.detail.value
+      })
+    }
+    
   },
   deleteItem(e) {
     let temp = wx.getStorageSync('customStockClass')
@@ -133,7 +136,6 @@ Page({
   },
   editCustom() {
     let name = ''
-    this.popup2.hidePopup();
     let temp = wx.getStorageSync('customStockClass')
     for (let i = 0; i < temp.length; i++) {
       if (i == this.data.blockIndex) {
@@ -152,29 +154,27 @@ Page({
       wx.setStorageSync('1070000000000000000000000000000000000000' + this.data.customName, wx.getStorageSync('1070000000000000000000000000000000000000' + name))
       wx.removeStorageSync('1070000000000000000000000000000000000000' + name)
     }
-    this.setData({
-      blocklists: temp,
-      customName: '',
-      blockIndex: ''
-    })
-  },
-  removeThis(detail) {
-    this.setData({
-      selectedCode: detail.currentTarget.dataset.item.stockCode
-    })
-    wx.showModal({
-      title: '提示',
-      content: '是否确认删除该自选股',
-      success: res => {
-        if (res.confirm) {
-          let temp = wx.getStorageSync('customStockTable')
-          temp[this.data.selector[this.data.index].name] = wx.getStorageSync('customStockTable')[this.data.selector[this.data.index].name].filter(item => {
-            return item !== this.data.selectedCode
-          })
-          wx.setStorageSync('customStockTable', temp)
-          getK107()
+    
+      let flag = true
+      for (let i = 0; i < temp.length; i++) {
+        if (temp[i].name == this.data.customName && i !== this.data.blockIndex) {
+          flag = false
         }
       }
-    })
+      if (flag) {
+        this.popup2.hidePopup();
+        wx.setStorageSync('customStockClass', temp)
+        this.setData({
+        blocklists: temp,
+        customName: '',
+        blockIndex: ''
+        })
+      } else {
+        wx.showToast({
+          title: '已有同名自选股板块',
+          icon: 'error'
+        })
+      }
+      
   }
 })

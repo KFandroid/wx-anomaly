@@ -5,6 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    showarea: false,
     falseFlag: false,
     indexInfo:[{"stockCode":"A00001","code":"060001","stockName":"上证指数","py":"SZZS","market":"上指","type":"", "y":200},
     {"stockCode":"A00002","code":"060002","stockName":"Ａ股指数","py":"AGZS","market":"上指","type":"", "y":200},
@@ -95,6 +96,9 @@ Page({
       this.setData({
         selectIndex: this.data.selectIndex,
         indexInfo: this.data.indexInfo
+      })
+      this.setData({
+        showarea: true
       })
     })
     

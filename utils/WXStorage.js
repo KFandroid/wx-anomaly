@@ -13,9 +13,9 @@
         // this.isReturn = false
         return file.createKey.bind(file.ctx)()
       }
-      if(file.hasOwnProperty('intervalTime')) {
+      // if(file.hasOwnProperty('intervalTime')) {
         this.intervalTime = 2000 || 0 // FIXME
-      }
+      // }
       this.updateHandle = null
       if (this.intervalTime) {
         this.updateHandle = setInterval(() => {

@@ -11,7 +11,8 @@
     "pages/stockTable/stockTable",
     "pages/stockIndex/stockIndex",
     "pages/indicatorSetting/indicatorSetting",
-    "pages/setting/setting"
+    "pages/setting/setting",
+    "pages/webView/webView"
   ],
   "window": {
     "backgroundTextStyle": "light",

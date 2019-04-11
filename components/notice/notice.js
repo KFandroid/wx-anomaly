@@ -14,7 +14,7 @@ Component({
       type: Object,
       value: {},
       observer(newData) {
-        debugger
+        
         if(newData) {
           this.setData({
             currentPage: parseInt(newData.page),

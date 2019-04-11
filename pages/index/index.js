@@ -19,6 +19,7 @@ Page({
     t102: null,
     t103: null,
     t107: null,
+    pagesrc: '',
     indexSearchHeight: 300
   },
 
@@ -66,6 +67,12 @@ Page({
    */
   onUnload: function() {
 
+  },
+  changePageSrc() {
+    
+    wx.navigateTo({
+      url: "../webView/webView?src=https://www.baidu.com/"
+    })
   },
   getK107(e) {
     storage.deleteFile(107)

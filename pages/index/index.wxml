@@ -1,7 +1,8 @@
 <!--pages/index/index.wxml-->
 <view class="index">
-
+<!-- <view style="height: 100px;width: 100px; border:2px solid red;" bindtap="changePageSrc"></view> -->
   <view class="search-btn">
+  
 
     <navigator url="../../pages/search/search" class="btn sea_btn" bindtap="viewTap" >
       <image src="../../utils/images/search.png" style='max-width: 50rpx; height: 34rpx;' mode="aspectFit"></image>
@@ -23,4 +24,5 @@
   <view class="custom-stock">
     <component-optionalStock bind:getK107="getK107" t107="{{t107}}"></component-optionalStock>
   </view>
+  <!-- <web-view class="{{pagesrc == '' ? 'hide': ''}}" src="{{pagesrc}}"></web-view> -->
 </view>

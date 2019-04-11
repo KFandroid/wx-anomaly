@@ -153,7 +153,14 @@ Component({
     },
     rfArr: {
       type: Object,
-      value: {}
+      value: {},
+      observer() {
+        if(this.data.data.rf && this.data.data.rf.length > 0 && this.data.width && this.data.height) {
+          this.processData()
+            this.draw()
+        }
+        
+      }
     },
     kSettingItem: {
       type: Object,

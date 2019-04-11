@@ -70,7 +70,7 @@ bind:ok="settingDialogYes">
 </view>
 <view wx:elif="{{selectIndex==1}}" class="cover" id="source">
   <view class="main-title sou-title">最新资料</view>
-  <scroll-view scroll-y="true" class="scrollDes">
+  <scroll-view scroll-y="true" class="scrollDes" style="height: {{height - 26}}px;">
     <view class="sou-detail" wx:for="{{sourceItems}}" wx:key="index">
       <view class="sou-left">{{item.title}}</view>
       <view class="sou-right">{{item.data}}</view>

@@ -10,7 +10,7 @@
             </view>
             <view class="index_rf">
                     {{item.cj}}
-                    ({{item.rise}})%
+                    ({{item.rise}})
               
             </view>
         </view>

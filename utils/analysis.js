@@ -1454,7 +1454,6 @@ import {
     return data
   }
   const toTable146 = function(dataView) {
-    debugger
     let data = {}
     data.type = '146'
     // 
@@ -1474,7 +1473,6 @@ import {
       obj.time = dataView.getInt32(order)
       order+=4
       let strArr=[]
-      debugger
       for (let i = 0; i < obj.titleLength; i++) {
         strArr.push(dataView.getUint8(order))
         
@@ -1485,7 +1483,7 @@ import {
       data.data.push(obj)
     }
     
-    
+    debugger
     return data
   }
   const analysisByte = function(buffer) {

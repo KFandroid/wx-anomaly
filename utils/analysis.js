@@ -1485,7 +1485,7 @@ import {
       data.data.push(obj)
     }
     
-    debugger
+    
     return data
   }
   const analysisByte = function(buffer) {

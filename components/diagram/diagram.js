@@ -3229,6 +3229,7 @@ Component({
       type: Object,
       value: {},
       observer(newData) {
+        
         if (newData.jhjj == true) {
           this.data.DrawM30 = false
           this.openjhjj()
@@ -3236,7 +3237,13 @@ Component({
           this.data.DrawM30 = true
           this.closejhjj()
         }
-        this.doDraw
+        let gap = (this.data.xRange[1] - this.data.xRange[0]) / (this.data.timeIndex - 1)
+
+        this.data.gap = gap
+        if (this.data.currentIndex >= 0 && this.data.showCrosshair) {
+          this.moveCrosshair(this.data.currentIndex, true)
+        }
+        this.doDraw()
       }
     }
   },
@@ -3409,12 +3416,13 @@ Component({
       this.draw()
     },
     drawCrosshair(ctx) {
-
-
+      ctx.setLineDash([0, 0], 0)
+      ctx.beginPath()
       ctx.moveTo(this.data.crosshair.x, 0)
       ctx.lineTo(this.data.crosshair.x, this.data.yRange[1])
       // ctx.moveTo(0, this.data.crosshair.y)
       // ctx.lineTo(this.data.xRange[1], this.data.crosshair.y)
+      ctx.closePath()
       ctx.setStrokeStyle('black')
       ctx.stroke()
     },
@@ -3571,6 +3579,15 @@ Component({
       ctx.closePath()
       ctx.stroke()
     },
+    drawYLine(yPosition, ctx) {
+      // ctx.setStrokeStyle('black')
+      ctx.beginPath()
+      ctx.setLineDash([3, 3], 10)
+      ctx.moveTo(0, yPosition)
+      ctx.lineTo(this.data.xRange[1], yPosition)
+      ctx.closePath()
+      ctx.stroke()
+    },
     drawGrid(ctx) {
       let timeArr = this.data.xGrid
       ctx.setStrokeStyle('rgba(186, 186, 186, 1)')
@@ -3580,18 +3597,12 @@ Component({
       const midY = this.data.yRange[1] / 2
       const firstY = (this.data.yRange[0] + midY) / 2
       const lastY = (this.data.yRange[1] + midY) / 2
+      const YLineArr = [midY, firstY, lastY]
       // ctx.beginPath()
-      ctx.beginPath()
-      ctx.setLineDash([3, 3], 2)
-      ctx.moveTo(0, midY)
-      ctx.lineTo(this.data.xRange[1], midY)
-      ctx.moveTo(0, firstY)
-      ctx.lineTo(this.data.xRange[1], firstY)
-      ctx.moveTo(0, lastY)
-      ctx.lineTo(this.data.xRange[1], lastY)
-      ctx.closePath()
-      ctx.stroke()
-      ctx.setLineDash([0, 0], 0)
+      for(let i = 0; i < YLineArr.length; i++) {
+        this.drawYLine(YLineArr[i], ctx)
+      }
+      
     },
     preDraw() {
       const ctx = wx.createCanvasContext('firstCanvas', this)
@@ -3610,17 +3621,17 @@ Component({
 
       if(this.data.isStock) {
         TextInfo = [{
-          text:this.data.data.pcp,
+          text:parseFloat(this.data.data.pcp).toFixed(2),
           x: xEnd,
           y: midY + fontSize/3,
           color: 'gray'
         }, {
-          text:this.data.yDomain[1],
+          text:parseFloat(this.data.yDomain[1]).toFixed(2),
           x: xEnd,
           y:fontSize,
           color: 'gray'
         }, {
-          text:this.data.yDomain[0],
+          text:parseFloat(this.data.yDomain[0]).toFixed(2),
           x: xEnd,
           y: yEnd - fontSize/3,
           color: 'gray'
@@ -3666,6 +3677,7 @@ Component({
       ctx.closePath()
     },
     drawFline(ctx) {
+      ctx.setLineDash([0, 0], 0)
       let data = this.data.data.data
       let startIndex = 0
       for (let i = 0, length = data.length; i < length; i++) {

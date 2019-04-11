@@ -22,6 +22,9 @@ Component({
       value: 200,
       observer(newData) {
         this.data.xRange = [0, newData]
+        let gap = (this.data.xRange[1] - this.data.xRange[0]) / (this.data.timeIndex - 1)
+
+        this.data.gap = gap
         if (Object.keys(this.data.data).length !== 0) {
           this.preprocess()
 
@@ -48,7 +51,12 @@ Component({
       value: {},
       observer(newData) {
         
-        this.draw()
+        
+        if (newData.jhjj == true) {
+          this.openjhjj()
+        } else {
+          this.closejhjj()
+        }
       }
     }
   },
@@ -204,6 +212,7 @@ Component({
     closejhjj() {
       this.data.start = [9, 30]
       this.data.timeIndex = 241
+      this.data.openjhjjFlag = false
       if (Object.keys(this.data.data).length !== 0) {
         this.preprocess()
       }
@@ -211,7 +220,8 @@ Component({
     },
     openjhjj() {
       this.data.start = [9, 15]
-      this.timeIndex = 256
+      this.data.timeIndex = 256
+      this.data.openjhjjFlag = true
       if (Object.keys(this.data.data).length !== 0) {
         this.preprocess()
       }
@@ -223,7 +233,7 @@ Component({
     },
     draw() {
       const ctx = wx.createCanvasContext('secondCanvas', this)
-   
+      
       if (Object.keys(this.data.data).length !== 0 && this.data.data.data.length) {
         this.drawFline(ctx)
         if(this.data.kSettingItem.fsjlx) {
@@ -248,10 +258,9 @@ Component({
       ctx.draw()
     },
     preprocess() {
-      
-      let reactWidth = (this.data.xRange[1] - this.data.xRange[0]) / (this.data.timeIndex - 1)
-      let gap = reactWidth
-      this.data.gap = reactWidth
+      let gap = (this.data.xRange[1] - this.data.xRange[0]) / (this.data.timeIndex - 1)
+
+        this.data.gap = gap
       
       let data = this.data.data
 
@@ -259,20 +268,10 @@ Component({
       let yDomain = [0, data.maxDeal]
       this.data.yDomain = yDomain
       this.data.beforePrice = data.pcp
-      let start = this.data.start
-
+      
       for (let i = 0, length = data.data.length; i < length; i++) {
-        let date = []
-        let dataDate = parseInt(data.data[i].date)
-        date[0] = Math.floor(dataDate / 100)
-
-        date[1] = dataDate % 100
-
-        let index = (date[0] - start[0]) * 60 + (date[1] - start[1])
-        if (date[0] >= 13) {
-          index = index - 90
-        }
-        data.data[i].x = gap * index
+        
+        data.data[i].x = this.transfer2x(data.data[i].date)
         data.data[i].y = this.transfer2y(data.data[i].dealA)
         data.data[i].averagey = this.transfer2y(data.data[i].averageDa)
       }
@@ -358,8 +357,11 @@ Component({
       return (yDomain[1] - y) / (yDomain[1] - yDomain[0]) * (yRange[1] - yRange[0]) + yRange[0]
     },
 
-    transfer2x() {
-
+    transfer2x(time) {
+      let index = this.transfer2TimeIndex(time)
+      let gap = this.data.gap
+      
+      return gap * index
     },
     convertDataToPositonArr() {
       let data = this.data.data

@@ -6,7 +6,7 @@ Component({
   properties: {
     scrollHeight: {
       type: Number,
-      value: 280,
+      value: 260,
       observer(data) {
 
       }

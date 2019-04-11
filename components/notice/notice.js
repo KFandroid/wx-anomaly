@@ -1,4 +1,5 @@
 // components/notice/notice.js
+import EventBus from '../../utils/pubsub.js'
 Component({
   /**
    * 组件的属性列表
@@ -60,11 +61,14 @@ Component({
    */
   methods: {
     pageUp() {
+      
+      let page = this.data.currentPage - 1
       if(this.data.currentPage > 1) {
-        EventBus.emit('get146', {page: this.data.currentPage - 1})
+        EventBus.emit('get146', {page})
       }
     },
     pageDown() {
+      
       if(this.data.currentPage < this.data.totalPage) {
         EventBus.emit('get146', {page: this.data.currentPage + 1})
       }

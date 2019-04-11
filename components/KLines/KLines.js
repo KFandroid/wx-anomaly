@@ -10,7 +10,7 @@ import {
 } from '../../utils/changeUnit.js'
 
 const app = getApp()
-const dealKDJ = function (data) {
+const dealKDJ = function(data) {
   for (let i = 0, length = data.length; i < length; i++) {
     let rangeData = []
     if (i < 8) {
@@ -66,7 +66,7 @@ Component({
 
 
           if (oldData.page !== newData.page) {
-            
+
             this.data.data = {
               rf: newData.data
             }
@@ -127,7 +127,7 @@ Component({
               }
             }
           }
-          
+
           let nowCount = this.data.data.rf.length
           let dvalue = nowCount - oldCount
           if (dvalue > 0) {
@@ -155,11 +155,11 @@ Component({
       type: Object,
       value: {},
       observer() {
-        if(this.data.data.rf && this.data.data.rf.length > 0 && this.data.width && this.data.height) {
+        if (this.data.data.rf && this.data.data.rf.length > 0 && this.data.width && this.data.height) {
           this.processData()
-            this.draw()
+          this.draw()
         }
-        
+
       }
     },
     kSettingItem: {
@@ -243,8 +243,7 @@ Component({
       EventBus.on('closecrosshair', this.closeCrosshair.bind(this))
       EventBus.on('clearcanvas', this.clearCanvas.bind(this))
     },
-    detached() {
-    }
+    detached() {}
   },
   methods: {
     clearCanvas() {
@@ -262,7 +261,7 @@ Component({
       this.data.count = 0
       this.data.data = {}
     },
-    longTapMove: debounce(function (e, isDate = false) {
+    longTapMove: debounce(function(e, isDate = false) {
       let x
 
       x = e.changedTouches[0].x
@@ -343,7 +342,7 @@ Component({
         index = this.data.needData.length - 1
       }
       this.data.currentIndex = index
-      
+
       if (Object.prototype.toString.call(this.data.needData) !== "[object Array]") {
         return
       }
@@ -434,7 +433,7 @@ Component({
         let moveCount = Math.round(count * movePercent)
         if (this.data.stepMove != 0) {
           moveCount = this.data.stepMove
-          
+
           wx.nextTick(() => {
             this.moveCrosshairByBtn(moveDirection)
           })
@@ -451,13 +450,13 @@ Component({
           }
           this.data.start -= moveCount
           this.data.end -= moveCount
-          
+
           if (this.data.start < 0) {
             this.data.end -= this.data.start
             this.data.start = 0
           }
 
-        } else if (moveDirection === 'right' && this.data.end < this.data.data.rf.length ) {
+        } else if (moveDirection === 'right' && this.data.end < this.data.data.rf.length) {
           this.data.start += moveCount
           this.data.end += moveCount
           if (this.data.end > this.data.data.rf.length) {
@@ -570,7 +569,7 @@ Component({
       if (this.data.showCrosshair) {
         let start = this.data.start
         let currentIndex = realIndex - start
-        
+
         if (realIndex === this.data.end) {
           currentIndex -= 1
         }
@@ -579,7 +578,7 @@ Component({
         }
         // this.calculateCrosshair({ x: this.data.xDomain[currentIndex], type })
         this.data.currentIndex = currentIndex
-        
+
       }
     },
     processRf() {
@@ -599,9 +598,9 @@ Component({
     },
     draw() {
       this.drawSplitLine()
-      if (this.data.beforeRf) {
+      // if (this.data.beforeRf) {
       this.calculateAvg()
-      }
+      // }
       if (this.data.showCrosshair) {
         this.drawCrosshair(this.data.context)
       }
@@ -830,7 +829,7 @@ Component({
         index += 1
       }
       this.data.currentIndex = index
-      
+
       let realX = width * index + this.data.rectWidth / 2
 
       if (realX < 0) {
@@ -850,7 +849,7 @@ Component({
 
 
     },
-    moveLeft: throttle(function () {
+    moveLeft: throttle(function() {
       let direction = 'left'
       if (this.data.showCrosshair) {
         this.moveCrosshairByBtn(direction)
@@ -858,7 +857,7 @@ Component({
         this.moveData(direction)
       }
     }, 500),
-    moveRight: throttle(function () {
+    moveRight: throttle(function() {
       let direction = 'right'
       if (this.data.showCrosshair) {
         this.moveCrosshairByBtn(direction)
@@ -866,22 +865,22 @@ Component({
         this.moveData(direction)
       }
     }, 500),
-    bindBoost: throttle(function () {
+    bindBoost: throttle(function() {
       this.data.clickBtn = true
       if (this.data.sizeLevel < 7) {
         this.data.sizeLevel++
-        EventBus.emit('changesizelevel', this.data.sizeLevel)
+          EventBus.emit('changesizelevel', this.data.sizeLevel)
         this.processData()
 
         this.draw()
       }
     }, 500),
-    bindNarrow: throttle(function () {
+    bindNarrow: throttle(function() {
       this.data.clickBtn = true
       if (this.data.sizeLevel > 0) {
         this.data.sizeLevel--
 
-        EventBus.emit('changesizelevel', this.data.sizeLevel)
+          EventBus.emit('changesizelevel', this.data.sizeLevel)
         this.processData()
         this.draw()
       }

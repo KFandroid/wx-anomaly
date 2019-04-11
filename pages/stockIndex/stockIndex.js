@@ -759,6 +759,7 @@ Page({
             })
           },
           createKey: () => {
+            
             let val = this.createKeyStr3(146, '000000', this.data.stockCode, true, 0, true)
             return val
           }
@@ -2369,10 +2370,13 @@ Page({
     })
   },
   get146(param) {
+    
     let pageNum = 0
     if(param) {
-      pageNum = param.pageNum
+      
+      pageNum = param.page
     }
+    storage.deleteFile(146)
     storage.addFile({
       type: '146',
       ctx: this,
@@ -2382,10 +2386,13 @@ Page({
         })
       },
       createKey: () => {
-        let val = this.createKeyStr3(146, '000000', this.data.stockCode, true, pageNum, true)
+        
+        let val = this.createKeyStr3(146, '000000', this.data.stockCode, true, pageNum, false)
         return val
       }
+      
     })
+    
   },
   diagramUnableRight() {
     this.setData({

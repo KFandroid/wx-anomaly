@@ -263,7 +263,7 @@ Page({
       let index = e.detail.value[i].split(',')[0]
       let value = e.detail.value[i].split(',')[1]
       this.data.items.kydjxPeriod[index].checked = true
-      e.detail.value[i] = +e.detail.value[i]
+      e.detail.value[i] = +value
     }
     this.setData({
       items: this.data.items
@@ -278,7 +278,7 @@ Page({
       let index = e.detail.value[i].split(',')[0]
       let value = e.detail.value[i].split(',')[1]
       this.data.items.kcbjxPeriod[index].checked = true
-      e.detail.value[i] = +e.detail.value[i]
+      e.detail.value[i] = +value
     }
     this.setData({
       items: this.data.items
@@ -293,7 +293,7 @@ Page({
       let index = e.detail.value[i].split(',')[0]
       let value = e.detail.value[i].split(',')[1]
       this.data.items.kcjljxPeriod[index].checked = true
-      e.detail.value[i] = +e.detail.value[i]
+      e.detail.value[i] = +value
     }
     this.setData({
       items: this.data.items

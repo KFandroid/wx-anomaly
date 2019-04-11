@@ -1467,11 +1467,13 @@ import {
     data.sortCode = addZero('' + dataView.getInt16(18) + dataView.getInt16(20), 4)
     data.data = []
     let order = 32
+    let itemTime = ""
     while(order < dataView.byteLength){
       let obj = {}
       obj.titleLength = dataView.getInt16(order)
       order+=2
-      obj.time = dataView.getInt32(order)
+      itemTime = String(dataView.getInt32(order))
+      obj.time = itemTime.slice(0,4)+'-'+itemTime.slice(4,6)+'-'+itemTime.slice(6)
       order+=4
       let strArr=[]
       
@@ -1483,9 +1485,9 @@ import {
       }
       obj.content = utf8ByteArrayToString(strArr).replace(/\u0000/g, "")
       data.data.push(obj)
-    }
+    }    
     
-    debugger
+    
     return data
   }
   const analysisByte = function(buffer) {

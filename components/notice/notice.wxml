@@ -13,7 +13,7 @@
     </view>
 </scroll-view>
 <view class="pagination-container">
-      <view class='pageBtn' bindtap='pageUp' hidden="{{currentPage === 1}}">上一页</view>
-      <text>{{currentPage}}/{{totalPage}}页</text>
-      <view class='pageBtn' bindtap='pageDown' hidden="{{currentPage === totalPage}}">下一页</view>
+      <view class='pageBtn' bindtap='pageUp' hidden="{{thisPage === 1}}">上一页</view>
+      <text>{{thisPage}}/{{totalPage}}页</text>
+      <view class='pageBtn' bindtap='pageDown' hidden="{{thisPage === totalPage}}">下一页</view>
     </view>

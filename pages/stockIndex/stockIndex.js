@@ -1505,6 +1505,9 @@ Page({
         }
       })
     } else {
+      if(this.data.bottomIndex == 3){
+        this.get146()
+      }
       storage.addFile({
         type: '131',
         ctx: this,
@@ -2452,6 +2455,7 @@ Page({
         }
       })
     } else {
+      this.get146()
       storage.addFile({
         type: '131',
         ctx: this,

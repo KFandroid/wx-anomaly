@@ -116,8 +116,8 @@
       </view>
       <view class="left-menu-bar flex-box">
         <view class="flex-box col-10-8 fs-container" wx:if="{{selectIndex === 1}}">
-          <image mode="widthFix" catchtap='stockUp' src="{{m1.upIcon(rwLocal)}}"></image>
-          <image mode="widthFix" catchtap='stockDown' src="{{m1.downIcon(rwLocal)}}"></image>
+          <image mode="widthFix" catchtap="{{rwLocal == true ? 'stockUp': ''}}" src="{{m1.upIcon(rwLocal)}}"></image>
+          <image mode="widthFix" catchtap="{{rwLocal == true ? 'stockDown': ''}}" src="{{m1.downIcon(rwLocal)}}"></image>
           <image mode="widthFix" catchtap='diagramMoveLeft' src="{{m1.leftIcon(diagramLeft)}}"></image>
           <image mode="widthFix" catchtap='diagramMoveRight' src="{{m1.rightIcon(diagramRight)}}"></image>
         </view>
@@ -126,8 +126,8 @@
           <image mode="widthFix" class="narrow" catchtap='bindNarrow' src="../../utils/images/narrow.png"></image>
           <image mode="widthFix" catchtap='moveLeft' src="../../utils/images/left.png"></image>
           <image mode="widthFix" catchtap='moveRight' src="../../utils/images/right.png"></image>
-          <image mode="widthFix" catchtap='stockUp' src="{{m1.upIcon(rwLocal)}}"></image>
-          <image mode="widthFix" catchtap='stockDown' src="{{m1.downIcon(rwLocal)}}"></image>
+          <image mode="widthFix" catchtap="{{rwLocal == true ? 'stockUp': ''}}" src="{{m1.upIcon(rwLocal)}}"></image>
+          <image mode="widthFix" catchtap="{{rwLocal == true ? 'stockDown': ''}}" src="{{m1.downIcon(rwLocal)}}"></image>
         </view>
         <view class="btn" bindtap='toSetting'>设置</view>
       </view>
@@ -152,7 +152,7 @@
         bind:showcurrentInfo="showCurrentInfo"
          bind:drawcrosshair="drawCrossHair2" 
          id='stockDeal' height="{{dealHeight}}" 
-         drawData="{{drawData}}" width="{{dealWidth}}" kSettingItem="{{kSettingItem}}"></stock-deal>
+         drawData="{{drawData}}" width="{{diagramWidth}}" kSettingItem="{{kSettingItem}}"></stock-deal>
       </view>
     </view>
     <view class="right col-24-8" wx:if="{{showDeal}}">

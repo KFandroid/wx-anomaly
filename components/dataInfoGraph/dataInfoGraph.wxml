@@ -48,6 +48,17 @@
 </view>
 </view>
 
+ 
+</view>
+<view wx:elif="{{selectIndex==1}}" class="cover" id="source">
+  <view class="main-title sou-title">最新资料</view>
+  <scroll-view scroll-y="true" class="scrollDes" style="height: {{height - 26}}px;">
+    <view class="sou-detail" wx:for="{{sourceItems}}" wx:key="index">
+      <view class="sou-left">{{item.title}}</view>
+      <view class="sou-right">{{item.data}}</view>
+    </view>
+  </scroll-view>
+</view>
 <popup id='popup' 
 title='设置' 
 btn_no='取消' 
@@ -66,14 +77,4 @@ bind:ok="settingDialogYes">
           异动项目不可超过{{graphCount}}！
       </cover-view>
     </cover-view>
-</popup>    
-</view>
-<view wx:elif="{{selectIndex==1}}" class="cover" id="source">
-  <view class="main-title sou-title">最新资料</view>
-  <scroll-view scroll-y="true" class="scrollDes" style="height: {{height - 26}}px;">
-    <view class="sou-detail" wx:for="{{sourceItems}}" wx:key="index">
-      <view class="sou-left">{{item.title}}</view>
-      <view class="sou-right">{{item.data}}</view>
-    </view>
-  </scroll-view>
-</view>
+</popup>   

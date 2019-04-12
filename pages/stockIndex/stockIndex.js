@@ -2357,11 +2357,7 @@ Page({
       'globalData' + currentStock.stockCode
     )
 
-    wx.nextTick(() => {
-      this.setData({
-        rwLocal: true
-      })
-    })
+    
     if (data !== '') {
       app.globalData = Object.assign({}, app.globalData, data)
     }
@@ -2538,6 +2534,11 @@ Page({
         })
       }
     }
+    wx.nextTick(() => {
+      this.setData({
+        rwLocal: true
+      })
+    })
     // this.setData({
     //   popUpTime: 0
     // })

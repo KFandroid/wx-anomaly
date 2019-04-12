@@ -33,11 +33,11 @@ Page({
         { name: '不显示', value: 'noKjx', checked: false }
       ],
       kydjxPeriod: [
-        { name: '5', checked: true },
-        { name: '10', checked: true },
-        { name: '20', checked: false },
-        { name: '30', checked: false },
-        { name: '60', checked: false }
+        { name: 5, checked: true },
+        { name: 10, checked: true },
+        { name: 20, checked: false },
+        { name: 30, checked: false },
+        { name: 60, checked: false }
       ],
       kcbjxPeriod: [
         { name: '5', checked: true },
@@ -196,6 +196,7 @@ Page({
         arr.push(+this.data.items[e.currentTarget.dataset.flag][i].name)
       }
     }
+    
     if (e.currentTarget.dataset.flag == 'kydjxPeriod') {
       this.data.settingItem.ydjx.period = arr
     }
@@ -263,7 +264,7 @@ Page({
       let index = e.detail.value[i].split(',')[0]
       let value = e.detail.value[i].split(',')[1]
       this.data.items.kydjxPeriod[index].checked = true
-      e.detail.value[i] = +e.detail.value[i]
+      e.detail.value[i] = +value
     }
     this.setData({
       items: this.data.items
@@ -278,7 +279,7 @@ Page({
       let index = e.detail.value[i].split(',')[0]
       let value = e.detail.value[i].split(',')[1]
       this.data.items.kcbjxPeriod[index].checked = true
-      e.detail.value[i] = +e.detail.value[i]
+      e.detail.value[i] = +value
     }
     this.setData({
       items: this.data.items
@@ -293,7 +294,7 @@ Page({
       let index = e.detail.value[i].split(',')[0]
       let value = e.detail.value[i].split(',')[1]
       this.data.items.kcjljxPeriod[index].checked = true
-      e.detail.value[i] = +e.detail.value[i]
+      e.detail.value[i] = +value
     }
     this.setData({
       items: this.data.items
@@ -323,7 +324,12 @@ Page({
     wx.navigateBack({
       delta: 1
     })
+    
     app.globalData.settingItem = this.data.settingItem
+    this.setData({
+      items: this.data.items,
+      settingItem: this.data.settingItem
+    })
     wx.setStorageSync('settingItem', this.data.settingItem)
   },
   showPopup() {

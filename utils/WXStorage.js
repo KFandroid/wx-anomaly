@@ -14,7 +14,7 @@
         return file.createKey.bind(file.ctx)()
       }
       // if(file.hasOwnProperty('intervalTime')) {
-        this.intervalTime = this.intervalTime || 0 // FIXME
+        this.intervalTime = file.intervalTime || 0 // FIXME
       // }
       this.updateHandle = null
       if (this.intervalTime) {

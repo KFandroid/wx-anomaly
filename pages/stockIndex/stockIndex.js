@@ -750,21 +750,7 @@ Page({
           bottomTab: this.data.bottomTab2
         })
         this.bottomTabChange(3)
-        storage.addFile({
-          type: '146',
-          ctx: this,
-          changeCb: (data) => {
-            this.setData({
-              t146: data
-            })
-          },
-          createKey: () => {
-            debugger
-            let val = this.createKeyStr3(146, '000000', this.data.stockCode, true, 0, true)
-            return val
-          }
-         
-        })
+        this.get146()
         storage.addFile({
           type: '112',
           ctx: this,
@@ -1657,6 +1643,9 @@ Page({
         }
       })
     } else {
+      if(this.data.bottomIndex === 3) {
+        this.get146()
+      }
       storage.addFile({
         type: '131',
         intervalTime: 6000,

@@ -759,10 +759,11 @@ Page({
             })
           },
           createKey: () => {
-            
+            debugger
             let val = this.createKeyStr3(146, '000000', this.data.stockCode, true, 0, true)
             return val
           }
+         
         })
         storage.addFile({
           type: '112',
@@ -2389,7 +2390,6 @@ Page({
         })
       },
       createKey: () => {
-        
         let val = this.createKeyStr3(146, '000000', this.data.stockCode, true, pageNum, false)
         return val
       }

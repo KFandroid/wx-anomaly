@@ -15,18 +15,20 @@ Component({
       type: Object,
       value: {},
       observer(newData) {
-        
         if(newData) {
           this.setData({
+            thisPage: parseInt(newData.totalPage - newData.page) + 1,
             currentPage: parseInt(newData.page),
             totalPage: parseInt(newData.totalPage),
             notieItems: newData.data
           })
-          if(newData.currentPage == newData.totalPage){
+          /* if(newData.page == newData.totalPage){
+            
+        debugger
             this.setData({
               thisPage: 1, 
             })
-          }
+          } */
         }
       }
     }
@@ -67,7 +69,6 @@ Component({
    */
   methods: {
     pageUp() {
-      debugger
       let page = this.data.currentPage + 1
       if(this.data.thisPage > 1) {
         this.setData({
@@ -77,7 +78,6 @@ Component({
       }
     },
     pageDown() {
-      debugger
       if(this.data.thisPage < this.data.totalPage) {
 
         this.setData({

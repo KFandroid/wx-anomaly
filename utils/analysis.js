@@ -1489,7 +1489,9 @@ import {
     
     
     
+    data.data.reverse();
     return data
+    
   }
   const analysisByte = function(buffer) {
     const dataView = new DataView(buffer)

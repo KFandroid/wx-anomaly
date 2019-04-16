@@ -1,4 +1,4 @@
-import {
+  import {
     utf8ByteArrayToString
   } from './crypt.js'
   import analysisByte from './analysis.js'

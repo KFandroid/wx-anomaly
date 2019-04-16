@@ -7,7 +7,9 @@
     flex:1;
     border:2rpx solid #b8b8b7;
     background-color:#f0f1f1;
-    height:130rpx;
+    display:flex;
+    padding:6rpx;
+
 }
 .index_detail:nth-child(2){
     margin: 0 10rpx
@@ -19,6 +21,8 @@
 }
 .index{
     text-align:center;
+    display:flex;
+    flex:1;
 }
 
 .index_name,.index_data{
@@ -26,14 +30,23 @@
     font-size: 30rpx;
 }
 .index_rf{
-    text-align: center;
     font-size:25rpx;
+}
+.index_data,.index_rf{
+    text-align:right;
 }
 .index_num{
 }
 .index_percent{
 }
+.index1{
+    flex:1;
+    flex-wrap: wrap;
+}
+.index2{
+    flex:2;
 
+}
 .triangle_border_right{
     width:0;
     height:0;

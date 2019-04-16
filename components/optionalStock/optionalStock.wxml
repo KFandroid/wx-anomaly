@@ -9,51 +9,45 @@
   </view>
   <view class="flex-box flex-column">
     <view class="flex-row thead">
-      <text class="flex-cell flex-row col-16-1">序</text>
-      <view class="flex-cell flex-row col-16-4 flex-2-row">
-        <text class="text">名称</text>
-        <text class="text">代码</text>
+      <!-- <text class="flex-cell flex-row col-16-1">序</text> -->
+      <view class="flex-cell col-16-6 flex-start">
+        <text class="text">股票</text>
       </view>
       <view class="flex-cell flex-row col-16-4 flex-2-row">
-        <text class="text">最新价</text>
-        <text class="text">涨幅</text>
+        <text class="text">最新</text>
+        
       </view>
       <view class="flex-cell flex-row col-16-4 flex-2-row">
-        <text class="text">成交量</text>
-        <text class="text">成交额</text>
+      <text class="text">涨幅</text>
       </view>
       <view class="flex-cell flex-row col-16-3 flex-2-row">
-        <text class="text">昨收</text>
-        <text class="text">今开</text>
+        <text class="text">成交量</text>
       </view>
     </view>
   </view>
   <view style='font-size:24rpx;text-align:center;' hidden='{{allData.length !== 0}}'>
     暂无自选股内容
   </view>
-  <scroll-view class="scrollView" hidden='{{allData.length === 0}}' scroll-y="true" style='height: {{scrollHeight}}px;'>
-    <view class="flex-box flex-column">
+  <scroll-view class="scrollView" hidden='{{allData.length === 0}}' scroll-y style='height: {{scrollHeight}}px;'>
+    
       <block wx:for="{{allData}}" wx:key="{{item.name}}" wx:for-item="item">
         <view class="flex-row" data-stock="{{item}}" bindtap="navigateToStock" data-item="{{item}}" bindlongpress="removeThis">
-          <text class="flex-cell flex-row col-16-1">{{index + 1}}</text>
-          <view class="flex-cell flex-row col-16-4 flex-2-row">
+          <!-- <text class="flex-cell flex-row col-16-1">{{index + 1}}</text> -->
+          <view class="flex-cell  col-16-6 flex-between">
             <text>{{item.stockName}}</text>
             <text>{{item.stockCode}}</text>
           </view>
           <view class="flex-cell flex-row col-16-4 flex-2-row">
             <text>{{item.cjj}}</text>
-            <text>{{item.zf}}%</text>
+            
           </view>
           <view class="flex-cell flex-row col-16-4 flex-2-row">
-            <text>{{item.cjl}}</text>
-            <text>{{item.cje}}</text>
+            <text>{{item.zf}}%</text>
           </view>
           <view class="flex-cell flex-row col-16-3 flex-2-row">
-            <text>{{item.zsj}}</text>
-            <text>{{item.kpj}}</text>
+            <text>{{item.cjl}}</text>
           </view>
         </view>
       </block>
-    </view>
   </scroll-view>
 </view>

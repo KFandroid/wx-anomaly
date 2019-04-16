@@ -22,7 +22,7 @@
    bind:getChild="getT102"
    ></component-indexSearch>
   <view class="custom-stock">
-    <component-optionalStock bind:getK107="getK107" t107="{{t107}}"></component-optionalStock>
+    <component-optionalStock scrollHeight="150"  bind:getK107="getK107" t107="{{t107}}"></component-optionalStock>
   </view>
   <!-- <web-view class="{{pagesrc == '' ? 'hide': ''}}" src="{{pagesrc}}"></web-view> -->
 </view>

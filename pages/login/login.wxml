@@ -4,7 +4,7 @@
 
   <view class="content {{showContent == true? 'show' : 'hide'}}">
     <view class="box">
-      <text>账号</text><input type="text" placeholder="" data-key="loginName" bindinput="changeInput" auto-focus/><image class="qs" mode="aspectFit" src="../../utils/images/qs.png" /><view class="rgq" bindtap="register">
+      <text>账号</text><input type="number" min="1" max="10" placeholder="" data-key="loginName" bindinput="changeInput" auto-focus/><image class="qs" mode="aspectFit" src="../../utils/images/qs.png" /><view class="rgq" bindtap="register">
         注册
       </view>
     </view>

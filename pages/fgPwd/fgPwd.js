@@ -18,11 +18,10 @@ Page({
     this.setData(obj)
   },
   send_code: function(){
-    // let tel= JSON.stringify(this.data.tel);
-    // console.log(this.data.tel);
-    // var regTel=new RegExp('0?(13|14|15|18)[0-9]{9}','g');//判断用户输入的是否为手机号码
-    // var rsTel=regTel.exec(this.data.tel);
-    if(!this.data.tel){
+    var regTel = /^1(3|4|5|7|8)\d{9}$/ ;//判断用户输入的是否为手机号码
+    var rsTel = regTel.test(this.data.tel);
+
+    if(!rsTel){
       wx.showToast({
         title: '请输入的是正确的手机号码',
         icon: 'none',

@@ -120,13 +120,16 @@ Page({
 
   } , 
   submit:function(){
-    var regTel=new RegExp('/^1\d{10}$/','g');//判断用户输入的是否为手机号码
-    var regPwd=new RegExp('^[A-Za-z0-9]+$','g');//判断用户输入的是否为小写字母加数字
-    var regCode=new RegExp('/^\d{6}$/','g');//判断用户输入的是否为数字
-    var rsTel=regTel.exec(this.data.account);
-    var rsPwd=regPwd.exec(this.data.pwd);
-    var rsVpwd=regPwd.exec(this.data.vpwd);
-    var rsCode=regCode.exec(this.data.code);
+    
+
+   var regTel = /^1(3|4|5|7|8)\d{9}$/ ;//判断用户输入的是否为手机号码
+   var regPwd = /^[A-Za-z0-9]+$/; //判断用户输入的是否为小写字母加数字
+   var regCode = /^\d{6}$/; //判断用户输入的是否为数字
+
+   var rsTel = regTel.test(this.data.account);
+   var rsPwd = regPwd.test(this.data.pwd);
+    var rsVpwd = regPwd.test(this.data.vpwd);
+    var rsCode = regCode.test(this.data.code);
     if(!rsTel){
       
       wx.showToast({
